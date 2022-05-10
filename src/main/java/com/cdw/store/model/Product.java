@@ -6,16 +6,16 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,15 +40,19 @@ public class Product {
 	private Integer status; // 0:ngung ban, 1: con hang
 	private Integer discount; // % giam
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<Image> images = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "productComment", cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "productDetail", cascade = CascadeType.ALL)
 	private List<OrderDetail> orderDetails = new ArrayList<>();
 	
+	@JsonIgnore
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "product_attribute", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "attribute_id"))
 	List<Attribute> attributes = new ArrayList<>();

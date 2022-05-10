@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,16 +44,20 @@ public class User {
 	@Column(name = "updated_date")
 	private Date updatedDate;
 
+	@JsonIgnore
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	List<Role> roles = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Address> addresses = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userComment", cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userResponse", cascade = CascadeType.ALL)
 	private List<Response> responses = new ArrayList<>();
 

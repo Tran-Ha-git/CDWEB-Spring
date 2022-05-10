@@ -6,13 +6,13 @@ import com.cdw.store.dto.ProductDto;
 import com.cdw.store.model.Product;
 
 public interface IProductService {
-	public Product addProduct(Product product);
+	public ProductDto addProduct(ProductDto productDto);
 
 	public List<ProductDto> findALlProducts();
 
-	public Product updateProduct(Product product);
+	public ProductDto updateProduct(ProductDto productDto);
 
 	public void deleteProduct(Long id);
 
-	public Product findProductById(Long id);
+	public ProductDto findProductById(Long id);
 }

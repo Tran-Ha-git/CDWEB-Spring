@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,14 +41,17 @@ public class Bill {
 	@Column(name = "updated_date")
 	private Date updatedDate;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "voucher_id")
 	private Voucher voucher;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, targetEntity = OrderDetail.class)
 	private List<OrderDetail> orderDetails =new ArrayList<>();
 	

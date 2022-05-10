@@ -25,9 +25,9 @@ public class ProductService implements IProductService {
 	private ProductRepo productRepo;
 
 	@Override
-	public Product addProduct(Product product) {
-		product.setName("xxx");
-		return productRepo.save(product);
+	public ProductDto addProduct(ProductDto productDto) {
+		Product product = productConverter.convertToEntity(productDto);
+		return productConverter.convertToDto(productRepo.save(product));
 	}
 
 	@Override
@@ -60,8 +60,9 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Product updateProduct(Product product) {
-		return productRepo.save(product);
+	public ProductDto updateProduct(ProductDto productDto) {
+		Product product = productConverter.convertToEntity(productDto);
+		return productConverter.convertToDto(productRepo.save(product));
 	}
 
 	@Override
@@ -70,9 +71,10 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Product findProductById(Long id) {
-		return productRepo.findById(id)
+	public ProductDto findProductById(Long id) {
+		Product product = productRepo.findById(id)
 				.orElseThrow(() -> new ProductNotFoundException("Product by id = " + id + " was not found"));
+		return productConverter.convertToDto(product); 
 	}
 
 }

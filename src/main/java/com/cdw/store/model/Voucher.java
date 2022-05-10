@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,8 @@ public class Voucher {
 	private Date startedDate;
 	@Column(name = "ended_date")
 	private Date endedDate;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
 	private List<Bill> bills = new ArrayList<>();
 
