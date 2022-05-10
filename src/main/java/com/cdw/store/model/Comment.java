@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,14 +41,17 @@ public class Comment {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User userComment;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product productComment;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
 	private List<Response> responses =new ArrayList<>();
 	

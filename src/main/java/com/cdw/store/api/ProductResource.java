@@ -31,21 +31,21 @@ public class ProductResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id){
-		Product product = productService.findProductById(id);
-		return new ResponseEntity<Product>(product, HttpStatus.OK);
+	public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id){
+		ProductDto product = productService.findProductById(id);
+		return new ResponseEntity<ProductDto>(product, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product){
-		Product newProduct = productService.addProduct(product);
-		return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
+	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto){
+		ProductDto newProduct = productService.addProduct(productDto);
+		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Product> updateProduct(@RequestBody Product product){
-		Product updateProduct = productService.addProduct(product);
-		return new ResponseEntity<Product>(updateProduct, HttpStatus.OK);
+	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto){
+		ProductDto updateProduct = productService.addProduct(productDto);
+		return new ResponseEntity<ProductDto>(updateProduct, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")

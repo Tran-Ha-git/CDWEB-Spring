@@ -13,6 +13,7 @@ public class ProductConverter {
 		entity.setName(dto.getName());
 		entity.setSummary(dto.getDesc());
 		entity.setPrice(dto.getPrice());
+		entity.setDiscount(dto.getDiscount());
 		return entity;
 	}
 	
@@ -22,6 +23,7 @@ public class ProductConverter {
 		dto.setName(entity.getName());
 		dto.setDesc(entity.getSummary());
 		dto.setPrice(entity.getPrice());
+		dto.setDiscount(entity.getDiscount());
 		return dto;
 	}
 }
