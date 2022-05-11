@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cdw.store.dto.DetailProductDto;
 import com.cdw.store.dto.ProductDto;
 import com.cdw.store.model.Product;
 import com.cdw.store.service.impl.ProductService;
@@ -31,9 +32,9 @@ public class ProductResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long id){
-		ProductDto product = productService.findProductById(id);
-		return new ResponseEntity<ProductDto>(product, HttpStatus.OK);
+	public ResponseEntity<DetailProductDto> getProductById(@PathVariable("id") Long id){
+		DetailProductDto product = productService.findProductById(id);
+		return new ResponseEntity<DetailProductDto>(product, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")

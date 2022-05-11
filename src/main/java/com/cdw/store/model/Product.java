@@ -39,6 +39,7 @@ public class Product {
 	private Long price; // gia nhap kho
 	private Integer status; // 0:ngung ban, 1: con hang
 	private Integer discount; // % giam
+	private String promotion;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

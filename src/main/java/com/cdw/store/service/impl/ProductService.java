@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cdw.store.dto.DetailProductDto;
 import com.cdw.store.dto.ProductDto;
 import com.cdw.store.exception.ProductNotFoundException;
 import com.cdw.store.model.Attribute;
@@ -71,10 +72,11 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public ProductDto findProductById(Long id) {
+	public DetailProductDto findProductById(Long id) {
 		Product product = productRepo.findById(id)
 				.orElseThrow(() -> new ProductNotFoundException("Product by id = " + id + " was not found"));
-		return productConverter.convertToDto(product); 
+		
+		return productConverter.convertToDetailProductDto(product); 
 	}
 
 }
