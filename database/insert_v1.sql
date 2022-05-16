@@ -126,7 +126,7 @@ INSERT INTO `cdweb2022`.`bill` (`id`, `created_date`, `shipping_cost`, `status`,
 
 INSERT INTO `cdweb2022`.`order_detail` (`id`, `price`, `quantity`, `bill_id`, `product_id`) VALUES ('1', '25000000', '1', '1', '2');
 
---Update 11/5/2022
+/*Update 11/5/2022*/
 ALTER TABLE `cdweb2022`.`product` 
 ADD COLUMN `promotion` VARCHAR(255) NULL DEFAULT NULL AFTER `view`;
 
