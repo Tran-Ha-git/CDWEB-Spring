@@ -3,6 +3,7 @@ package com.cdw.store.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,11 @@ public class ProductService implements IProductService {
 				.orElseThrow(() -> new ProductNotFoundException("Product by id = " + id + " was not found"));
 		
 		return productConverter.convertToDetailProductDto(product); 
+	}
+
+	@Override
+	public List<ProductDto> searchProducts(String key) {
+		return productRepo.search(key).stream().map(productEntity->productConverter.convertToDto(productEntity)).collect(Collectors.toList());
 	}
 
 }

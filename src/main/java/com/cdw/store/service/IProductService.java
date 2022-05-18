@@ -16,4 +16,5 @@ public interface IProductService {
 	public void deleteProduct(Long id);
 
 	public DetailProductDto findProductById(Long id);
+	public List<ProductDto> searchProducts(String key);
 }
