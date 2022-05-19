@@ -6,6 +6,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cdw.store.dto.DetailProductDto;
@@ -84,5 +87,16 @@ public class ProductService implements IProductService {
 	public List<ProductDto> searchProducts(String key) {
 		return productRepo.search(key).stream().map(productEntity->productConverter.convertToDto(productEntity)).collect(Collectors.toList());
 	}
+
+	@Override
+	public Page<Product> searchBAndPaging(String q,Pageable  paging) {
+		return productRepo.findByNameContainingIgnoreCase(q,paging);
+	}
+
+	@Override
+	public Page<Product> findALl(Pageable paging) {
+		return productRepo.findAll(paging);
+	}
+
 
 }
