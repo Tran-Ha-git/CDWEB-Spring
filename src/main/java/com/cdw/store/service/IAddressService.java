@@ -15,4 +15,6 @@ public interface IAddressService {
 	public void deleteAddress(Long id);
 
 	public Address findAddressById(Long id);
+
+	List<AddressDto> findByAddressUserId(Long id);
 }

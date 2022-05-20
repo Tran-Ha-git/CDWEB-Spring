@@ -2,6 +2,7 @@ package com.cdw.store.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,6 @@ public class AddressService implements IAddressService {
 	@Override
 	public List<AddressDto> findALlAddresses() {
 		List<Address> entities = addressRepo.findAll();
-
 		List<AddressDto> results = new ArrayList<>();
 
 		for (Address address : entities) {
@@ -52,6 +52,12 @@ public class AddressService implements IAddressService {
 	@Override
 	public Address findAddressById(Long id) {
 		return addressRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<AddressDto> findByAddressUserId(Long id) {
+		List<AddressDto> addresses = addressRepo.findAddressByUserId(id).stream().map(addressEntity->addressConverter.convertToDto(addressEntity)).collect(Collectors.toList());
+		return addresses;
 	}
 
 }
