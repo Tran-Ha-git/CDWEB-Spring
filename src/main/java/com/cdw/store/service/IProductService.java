@@ -19,6 +19,6 @@ public interface IProductService {
 
 	public DetailProductDto findProductById(Long id);
 	public List<ProductDto> searchProducts(String key);
-	public Page<Product>searchBAndPaging(String q,Pageable  paging);
-	public Page<Product>findALl(Pageable  paging);
+	public Page<ProductDto>searchBAndPaging(String q,Pageable  paging);
+	public Page<ProductDto>findAll(Pageable  paging);
 }

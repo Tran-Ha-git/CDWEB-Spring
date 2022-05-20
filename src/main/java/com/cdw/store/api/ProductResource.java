@@ -24,30 +24,29 @@ import com.cdw.store.service.impl.ProductService;
 public class ProductResource {
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private ProductConverter productConverter;
-	@GetMapping("/all")
-	public ResponseEntity<List<ProductDto>> getAllProducts(){
-		List<ProductDto> products = productService.findALlProducts();
-		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
-	}
+
+//	@GetMapping("/all")
+//	public ResponseEntity<List<ProductDto>> getAllProducts(){
+//		List<ProductDto> products = productService.findALlProducts();
+//		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
+//	}
 	@GetMapping("/instantSearch/query")
 	public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam("key")String key){
 		List<ProductDto> products = productService.searchProducts(key);
 		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
 	}
-	@GetMapping("/search")
+	@GetMapping("/all")
 	public ResponseEntity<Map<String, Object>> searchAndPaging( @RequestParam(required = false) String q,
 															 @RequestParam(defaultValue = "0") int page,
 															 @RequestParam(defaultValue = "3") int size){
 		Pageable paging = PageRequest.of(page, size);
-		Page<Product> pageProducts ;
+		Page<ProductDto> pageProducts ;
 		if(q==null){
-			pageProducts=productService.findALl(paging);
+			pageProducts=productService.findAll(paging);
 		}else{
 			pageProducts=productService.searchBAndPaging(q,paging);
 		}
-		List<ProductDto> products= pageProducts.getContent().stream().map(productEntity->productConverter.convertToDto(productEntity)).collect(Collectors.toList());
+		List<ProductDto> products= pageProducts.getContent();
 		Map<String, Object> response = new HashMap<>();
 		response.put("products", products);
 		response.put("currentPage", pageProducts.getNumber());

@@ -89,13 +89,13 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Page<Product> searchBAndPaging(String q,Pageable  paging) {
-		return productRepo.findByNameContainingIgnoreCase(q,paging);
+	public Page<ProductDto> searchBAndPaging(String q,Pageable  paging) {
+		return productConverter.convertToDto(productRepo.findByNameContainingIgnoreCase(q,paging));
 	}
 
 	@Override
-	public Page<Product> findALl(Pageable paging) {
-		return productRepo.findAll(paging);
+	public Page<ProductDto> findAll(Pageable paging) {
+		return productConverter.convertToDto(productRepo.findAll(paging));
 	}
 
 

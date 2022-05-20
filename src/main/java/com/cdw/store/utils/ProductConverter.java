@@ -3,6 +3,9 @@ package com.cdw.store.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cdw.store.dto.AddressDto;
+import com.cdw.store.model.Address;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.cdw.store.dto.DetailProductDto;
@@ -22,7 +25,12 @@ public class ProductConverter {
 		entity.setDiscount(dto.getDiscount());
 		return entity;
 	}
-	
+	public Page<ProductDto> convertToDto(Page<Product> pageEntity){
+		if (pageEntity == null) {
+			return null;
+		}
+		return pageEntity.map(this::convertToDto);
+	}
 	public ProductDto convertToDto(Product entity) {
 		ProductDto dto= new ProductDto();
 		dto.setId(entity.getId());
