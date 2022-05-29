@@ -2,6 +2,7 @@ package com.cdw.store.service;
 
 import java.util.List;
 
+import com.cdw.store.dto.UserDto;
 import com.cdw.store.model.User;
 
 public interface IUserService {
@@ -14,4 +15,10 @@ public interface IUserService {
 	public void deleteUser(Long id);
 
 	public User findUserById(Long id);
+	
+	public boolean existsByUsername(String username);
+
+	public boolean existsByEmail(String email);
+
+	public List<UserDto> getUsers();
 }

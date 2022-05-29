@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cdw.store.dto.LoginDto;
+import com.cdw.store.dto.MessageDto;
 import com.cdw.store.dto.SignupDto;
 import com.cdw.store.dto.UserInfoDto;
 import com.cdw.store.model.Role;
@@ -30,6 +31,8 @@ import com.cdw.store.repo.RoleRepo;
 import com.cdw.store.repo.UserRepo;
 import com.cdw.store.security.jwt.JwtUtils;
 import com.cdw.store.security.sevice.UserDetailsImpl;
+import com.cdw.store.service.impl.RoleService;
+import com.cdw.store.service.impl.UserService;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,9 +41,9 @@ public class AuthResource {
 	@Autowired
 	AuthenticationManager authenticationManager;
 	@Autowired
-	UserRepo userRepo;
+	UserService userService;
 	@Autowired
-	RoleRepo roleRepo;
+	RoleService	roleService;
 	@Autowired
 	PasswordEncoder encoder;
 	@Autowired
@@ -61,26 +64,26 @@ public class AuthResource {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupDto signupDto) {
-		if (userRepo.existsByUsername(signupDto.getUsername())) {
-			return ResponseEntity.badRequest().body("Error: Username is already taken!");
+		if (userService.existsByUsername(signupDto.getUsername())) {
+			return ResponseEntity.badRequest().body(new MessageDto("Error: Username is already taken!"));
 		}
-		if (userRepo.existsByEmail(signupDto.getEmail())) {
-			return ResponseEntity.badRequest().body("Error: Email is already taken!");
+		if (userService.existsByEmail(signupDto.getEmail())) {
+			return ResponseEntity.badRequest().body(new MessageDto("Error: Email is already taken!"));
 		}
 		User user = new User();
 		user.setUsername(signupDto.getUsername());
 		user.setPassword(encoder.encode(signupDto.getPassword()));
 		user.setEmail(signupDto.getEmail());
 
-		Role role = roleRepo.findByName("client").orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		Role role = roleService.findByName("client");
 		user.getRoles().add(role);
-		userRepo.save(user);
-		return ResponseEntity.ok("User registered successfully!");
+		userService.addUser(user);
+		return ResponseEntity.ok(new MessageDto("User registered successfully!"));
 	}
 
 	@PostMapping("/signout")
 	public ResponseEntity<?> logoutUser() {
 		ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body("You've been signed out!");
+		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new MessageDto("You've been signed out!"));
 	}
 }
