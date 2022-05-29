@@ -36,24 +36,35 @@ public class ProductResource {
 		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
 	}
 	@GetMapping("/all")
-	public ResponseEntity<Map<String, Object>> searchAndPaging( @RequestParam(required = false) String q,
+	public ResponseEntity<Map<String, Object>> searchProducts( @RequestParam(required = false) String q,
 															 @RequestParam(defaultValue = "0") int page,
-															 @RequestParam(defaultValue = "3") int size){
+															 @RequestParam(defaultValue = "10") int size){
 		Pageable paging = PageRequest.of(page, size);
-		Page<ProductDto> pageProducts ;
+		Page<ProductDto> pageProducts;
 		if(q==null){
 			pageProducts=productService.findAll(paging);
 		}else{
-			pageProducts=productService.searchBAndPaging(q,paging);
+				pageProducts=productService.searchAndPaging(q,paging);
 		}
+		return new ResponseEntity<>(responsePaging(pageProducts), HttpStatus.OK);
+	}
+	@GetMapping("/all/{name}")
+	public ResponseEntity<Map<String, Object>> getProductsByCategoryName(@PathVariable("name") String name, @RequestParam(defaultValue = "0") int page,
+																		 @RequestParam(defaultValue = "10") int size){
+		Pageable paging = PageRequest.of(page, size);
+		Page<ProductDto> pageProducts=productService.findByCategoryName(name,paging);
+		return new ResponseEntity<>(responsePaging(pageProducts), HttpStatus.OK);
+	}
+	private Map<String, Object> responsePaging(Page<ProductDto> pageProducts){
 		List<ProductDto> products= pageProducts.getContent();
 		Map<String, Object> response = new HashMap<>();
 		response.put("products", products);
 		response.put("currentPage", pageProducts.getNumber());
 		response.put("totalItems", pageProducts.getTotalElements());
 		response.put("totalPages", pageProducts.getTotalPages());
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return response;
 	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<DetailProductDto> getProductById(@PathVariable("id") Long id){
 		DetailProductDto product = productService.findProductById(id);
@@ -65,13 +76,13 @@ public class ProductResource {
 		ProductDto newProduct = productService.addProduct(productDto);
 		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto){
 		ProductDto updateProduct = productService.addProduct(productDto);
 		return new ResponseEntity<ProductDto>(updateProduct, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
 		productService.deleteProduct(id);
