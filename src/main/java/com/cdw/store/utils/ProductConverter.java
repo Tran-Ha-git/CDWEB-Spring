@@ -38,6 +38,12 @@ public class ProductConverter {
 		dto.setDesc(entity.getSummary());
 		dto.setPrice(entity.getPrice());
 		dto.setDiscount(entity.getDiscount());
+		if(entity.getImages().size()>0){
+			dto.setUrlImg(entity.getImages().get(0).getLink());
+		}
+
+
+
 		return dto;
 	}
 	

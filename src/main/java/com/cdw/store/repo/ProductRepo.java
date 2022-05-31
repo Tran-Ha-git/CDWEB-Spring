@@ -15,6 +15,6 @@ public interface ProductRepo extends JpaRepository<Product, Long>{
     @Query("SELECT p FROM Product p WHERE UPPER(p.name) LIKE %?1%")
     List<Product> search(String keyword);
     Page<Product> findByNameContainingIgnoreCase(String q, Pageable pageable);
-    @Query("Select p from Product p join p.attributes a join a.category c where c.name = :name")
+    @Query("Select distinct p from Product p join p.attributes a join a.category c where c.name = :name")
         Page<Product> findProductsByCategogyName(String name, Pageable pageable);
 }

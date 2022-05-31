@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.cdw.store.dto.DetailProductDto;
@@ -35,8 +36,12 @@ public class ProductResource {
 		List<ProductDto> products = productService.searchProducts(key);
 		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
 	}
+	@GetMapping("/things")
+	public ResponseEntity getThings(@RequestParam("filter") String[] filters) {
+		return ResponseEntity.ok(filters);
+	}
 	@GetMapping("/all")
-	public ResponseEntity<Map<String, Object>> searchProducts( @RequestParam(required = false) String q,
+	public ResponseEntity<Map<String, Object>> searchProducts(@RequestParam(required = false) String q,
 															 @RequestParam(defaultValue = "0") int page,
 															 @RequestParam(defaultValue = "10") int size){
 		Pageable paging = PageRequest.of(page, size);
@@ -48,6 +53,7 @@ public class ProductResource {
 		}
 		return new ResponseEntity<>(responsePaging(pageProducts), HttpStatus.OK);
 	}
+
 	@GetMapping("/all/{name}")
 	public ResponseEntity<Map<String, Object>> getProductsByCategoryName(@PathVariable("name") String name, @RequestParam(defaultValue = "0") int page,
 																		 @RequestParam(defaultValue = "10") int size){
