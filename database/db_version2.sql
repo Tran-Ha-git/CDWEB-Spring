@@ -225,6 +225,90 @@ CREATE TABLE `response` (
   CONSTRAINT `FKo86so3ptvukgyfb2rkb63hab4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+--update 31/5
+//laptop
+INSERT INTO `product` VALUES (10,10,'mo ta','Macbook Air M1 2020 Gold MGND3SA/A (Apple M1, 7-Cores GPU, Ram 8GB, SSD 256GB, 13.3 Inch IPS Retina)',24490000,10,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(11,10,'mo ta','Macbook Pro M1 2020 Silver MYDA2SA/A (Apple M1, 8-Cores GPU, Ram 8GB, SSD 256GB, 13.3 Inch IPS Retina)', 31490000, 10,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(12,3,'mo ta','Laptop Lenovo ThinkBook 15 G3 ACL 21A400CHVN (Ryzen 3 5300U, Radeon Graphics, Ram 8GB DDR4, SSD 512GB, 15.6 Inch IPS FHD)', 15990000, 9,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(13,5,'mo ta','Laptop Lenovo V15 G2 ITL 82KB00CVVN (i5-1135G7, MX350 2GB, Ram 8GB, SSD 512GB, 15.6 Inch FHD)', 18690000, 8,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(14,11,'mo ta','Laptop HUAWEI MateBook 14 AMD 2021 KLVL-W56W (Ryzen 5 5500U, Radeon Graphics, Ram 16GB DDR4, SSD 512GB, 14 Inch IPS QHD)', 20790000, 7,'Mo ta ngan',1,'sumary', null,'khuyen mai'),(15,12,'mo ta','Laptop HUAWEI MateBook D15 2021 BoD-WDH9 (i5-1135G7, Iris Xe Graphics, Ram 8GB DDR4, SSD 512GB, 15.6 Inch IPS FHD)', 17990000, 10, 'Mo ta ngan',1,'sumary', null,'khuyen mai'),(16,12,'mo ta','Laptop MSI Modern 14 B11MOU-1030VN/1027VN (i3-1115G4, UHD Graphics, Ram 8GB DDR4, SSD 256GB, 14 Inch IPS FHD)', 11790000, 4,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(17,12,'mo ta','Laptop Gaming MSI GP66 Leopard 11UE-643VN (i7-11800H, RTX 3060 6GB, Ram 16GB, SSD 512GB, 15.6 Inch IPS 165Hz QHD)', 37390000, 6,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(18,12,'mo ta','Laptop Asus Vivobook Pro 16X OLED M7600QC-L2077W (Ryzen 5 5600H, RTX 3050 4GB, Ram 16GB DDR4, SSD 512GB, 16 Inch OLED 4K)', 29990000, 20,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(19,15,'mo ta','Laptop Gaming Asus ROG Zephyrus G14 GA401QH-K2091W (Ryzen 7 5800HS, GTX 1650 4GB, Ram 8GB DDR4, SSD 512GB, 14 Inch IPS 120Hz WQHD)', 24590000, 33,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(20,2,'mo ta','Laptop Intel NUC M15 BBC710ECUXBC1 (i7-1165G7 EVO, Iris Xe Graphics , Ram 16GB DDR4, SSD 512GB, 15.6 Inch IPS FHD TouchScreen/Gray)', 23490000, 12,'Mo ta ngan',1,'sumary',null,'khuyen mai')
+
+//ram
+INSERT INTO `product` VALUES (21,10,'mo ta','Ram Laptop Samsung DDR4 4GB 3200MHz 1.2v M471A5244CB0-CWE', 390000, 12,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(22,10,'mo ta','Ram Laptop Kingston DDR4 4GB 3200MHz 1.2v KVR32S22S6/4', 390000, 11,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(23,0,'mo ta','Ram Laptop Corsair Vengeance DDR4 4GB 2400MHz 1.2v CMSX4GX4M1A2400C16', 590000, 11,'Mo ta ngan',1,'sumary',null,'khuyen mai'),(24,0,'mo ta','Ram Laptop Crucial DDR4 4GB 2666MHz 1.2v CT4G4SFS8266', 550000,11,'Mo ta ngan',1,'sumary',null,'khuyen mai')
+
+//Atttribute - PRODUCT_ATTRIBUTE
+INSERT INTO `attribute` VALUES (41,'CPU','Apple M1 8 Cores',1),(42,'VGA','Apple 7 Cores GPU',1),(43,'RAM','8GB',1),(44,'Ổ CỨNG','256GB',1),(45,'KÍCH THƯỚC MÀN HÌNH','13.3 Inch',1)
+INSERT INTO `product_attribute` VALUES (10,41),(10,42),(10,43),(10,44),(10,45);
+INSERT INTO `attribute` VALUES (46,'VGA','Apple 8 Cores GPU',1)
+    INSERT INTO `product_attribute` VALUES (11,41),(11,46),(11,43),(11,44),(11,45);
+INSERT INTO `attribute` VALUES (47,'VGA','AMD Radeon Graphics',1),(48,'Ổ CỨNG','512GB',1)
+    INSERT INTO `product_attribute` VALUES (12,17),(12,47),(12,43),(12,48),(12,14);
+INSERT INTO `attribute` VALUES (111,'THƯƠNG HIỆU','Corsair',2),(112,'THƯƠNG HIỆU','Crucial',2),(113,'THƯƠNG HIỆU','Kingston',2),(114,'THƯƠNG HIỆU','Samsung',2),(115,'BUS','2400',2),(116,'BUS','2666',2),(117,'BUS','3000',2),(118,'BUS','2133',2),(119,'DUNG LƯỢNG','4GB',2),(120,'DUNG LƯỢNG','8GB',2),(121,'DUNG LƯỢNG','16GB',2),(122,'DUNG LƯỢNG','32GB',2),(123,'DUNG LƯỢNG','64GB',2),(124,'DUNG LƯỢNG','128GB',2),(125,'DUNG LƯỢNG','256GB',2),(126,'BUS','3200',2)
+
+
+    INSERT INTO `product_attribute` VALUES (21,119),(21,126)
+INSERT INTO `product_attribute` VALUES (22,119),(22,126)
+INSERT INTO `product_attribute` VALUES (23,119),(23,115)
+INSERT INTO `product_attribute` VALUES (24,119),(24,116)
+
+    //img
+
+INSERT INTO `image` VALUES (111,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh.webp',1),
+    (112,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-1.webp',1),
+    (113,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-2.webp',1),
+    (114,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-3.webp',1),
+    (115,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-4.webp',1)
+
+INSERT INTO `image` VALUES (116,'laptop-dell-inspiron-16-5625-70281537.webp',2),
+    (117,'laptop-dell-inspiron-16-5625-1.webp',2),
+    (118,'laptop-dell-inspiron-16-5625-2.webp',2),
+    (119,'laptop-dell-inspiron-16-5625-3.webp',2),
+    (120,'laptop-dell-inspiron-16-5625-4.webp',2),
+    (121,'laptop-dell-inspiron-16-5625-5.webp',2)
+
+INSERT INTO `image` VALUES (122,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003.webp',3),
+    (123,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-1.webp',3),
+    (124,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-2.webp',3),
+    (125,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-3.webp',3),
+    (126,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-4.webp',3),
+    (127,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-5.webp',3),
+    (128,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-6.webp',3)
+
+INSERT INTO `image` VALUES (129,'laptop-dell-inspiron-15-3511-70270652.webp',4),
+    (130,'laptop-dell-inspiron-15-3511-70270650-6-a1ac66eb-4a80-4f42-aafe-58f031578cef.webp',4),
+    (131,'laptop-dell-inspiron-15-3511-70270650-5-1ad14ffd-a379-4cc8-9fe1-4319c55e522d.webp',4),
+    (132,'laptop-dell-inspiron-15-3511-70270650-4-b4b9ecad-c5c9-4706-bc92-3a96f2f7b014.webp',4),
+    (133,'laptop-dell-inspiron-15-3511-70270650-3-ad433d93-8890-4317-b3b6-6cf1b0d86b57.webp',4),
+    (134,'laptop-dell-inspiron-15-3511-70270650-2-645e50dc-f1ad-4d61-831f-6f1df99cd063.webp',4)
+
+
+INSERT INTO `image` VALUES (135,'laptop-dell-inspiron-15-3511-70270652.webp',5),
+    (136,'laptop-hp-probook-430-g8-614k7pa.webp',5),
+    (137,'laptop-hp-probook-430-g8-614k9pa-1-8e366d79-7676-4ac2-838e-a01262e11d8d.webp',5),
+    (138,'laptop-hp-probook-430-g8-614k9pa-2-6b95b7a5-b23f-4e2b-8178-87b1197417a2.webp',5),
+    (139,'laptop-hp-probook-430-g8-614k9pa-3-8e86b14b-e159-4591-9d0b-5e1b47f16409.webp',5),
+    (140,'laptop-hp-probook-430-g8-614k9pa-4-2e0fab15-c0da-4156-b15a-953861447c3d.webp',5)
+
+
+INSERT INTO `image` VALUES (141,'macbook-air-m1-2020-gold-mgnd3sa-a.webp',10),
+    (142,'macbook-air-m1-2020-gold-1-270670a4-0355-470c-8e57-adec570d0456.webp',10),
+    (143,'macbook-air-m1-2020-gold-2-8e2f0f39-d953-4d7c-9978-d7f358bf87e2.webp',10),
+    (144,'macbook-air-m1-2020-gold-3-cf115125-c567-4736-9aef-327ea55f6898.webp',10),
+    (145,'macbook-air-m1-2020-gold-4-c54d5f21-7fb1-4fe8-9dbc-9a4f751306b2.png',10),
+    (146,'macbook-air-m1-2020-gold-5-95055c6a-5a26-4245-8dbf-6a7f8502c9d4.webp',10)
+
+INSERT INTO `image` VALUES (147,'macbook-pro-m1-2020-silver-myda2sa-a.webp',11),
+    (148,'macbook-pro-m1-2020-silver-86600577-50a8-4782-b76e-46f08e45edcd.webp',11),
+    (149,'laptop-apple-macbook-pro-m1-2020-silver.webp',11),
+    (150,'laptop-apple-macbook-pro-m1-2020-silver-1.webp',11),
+    (151,'laptop-apple-macbook-pro-m1-2020-silver-2.webp',11)
+
+INSERT INTO `image` VALUES (152,'laptop-lenovo-thinkbook-15-g3-acl-21a400chvn-758babfd-3db9-4fc6-952c-9d55e1477c55.webp',12),
+    (153,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-7-12c14baa-371b-4ad6-b756-12f37e70ba0c.webp',12),
+    (154,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-6-82da2b7c-72df-47f2-882b-b887b60d130a.webp',12),
+    (155,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-5-be65bc96-4760-4205-845c-93e08348f8a3.webp',12),
+    (156,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-4-99ad3349-81d4-40bf-a48d-77162788e7bd.webp',12),
+    (157,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-3-828a7a50-9a92-4b3e-9765-bf4c3bbaf763.webp',12),
+    (158,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-1-08c270d6-4547-4c44-a3d5-be6642a0acea.webp',12)
+
+
 
 
 
