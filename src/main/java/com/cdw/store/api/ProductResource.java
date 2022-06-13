@@ -94,4 +94,12 @@ public class ProductResource {
 		productService.deleteProduct(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	//check quantity product
+	@GetMapping("/{id}/quantity")
+	public ResponseEntity<Long> getQuantityProduct(@PathVariable("id") Long id){
+		Long quantity = productService.getQuantityProductByProductId(id);
+		return new ResponseEntity<Long>(quantity, HttpStatus.OK);
+	}
+
 }

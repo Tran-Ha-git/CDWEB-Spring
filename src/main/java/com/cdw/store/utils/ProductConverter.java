@@ -54,6 +54,7 @@ public class ProductConverter {
 		dto.setPrice(entity.getPrice());
 		dto.setQuantity(dto.getQuantity());
 		dto.setDiscount(entity.getDiscount());
+		dto.setQuantity(entity.getQuantity());
 		
 		//get brand
 		String brand = "";
