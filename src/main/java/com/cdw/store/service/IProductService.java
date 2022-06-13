@@ -20,7 +20,7 @@ public interface IProductService {
 	public DetailProductDto findProductById(Long id);
 	public List<ProductDto> searchProducts(String key);
 	public Page<ProductDto>searchAndPaging(String q,Pageable  paging);
-	public Page<ProductDto>findByCategoryName(String categoryName,Pageable  paging);
+	public Page<ProductDto>findByCategoryId(Long id,Pageable  paging);
 	public Page<ProductDto>findAll(Pageable  paging);
 
 	public Long getQuantityProductByProductId(Long id);

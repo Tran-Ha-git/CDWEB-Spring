@@ -1,15 +1,18 @@
 package com.cdw.store.api;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.cdw.store.model.Filter;
+import com.cdw.store.model.QueryOperator;
+import com.cdw.store.repo.ProductRepo;
+import com.cdw.store.repo.specs.ProductSpecification;
 import com.cdw.store.utils.ProductConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
@@ -25,7 +28,10 @@ import com.cdw.store.service.impl.ProductService;
 public class ProductResource {
 	@Autowired
 	private ProductService productService;
-
+@Autowired
+private ProductRepo productRepo;
+@Autowired
+ProductConverter productConverter;
 //	@GetMapping("/all")
 //	public ResponseEntity<List<ProductDto>> getAllProducts(){
 //		List<ProductDto> products = productService.findALlProducts();
@@ -54,11 +60,11 @@ public class ProductResource {
 		return new ResponseEntity<>(responsePaging(pageProducts), HttpStatus.OK);
 	}
 
-	@GetMapping("/all/{name}")
-	public ResponseEntity<Map<String, Object>> getProductsByCategoryName(@PathVariable("name") String name, @RequestParam(defaultValue = "0") int page,
+	@GetMapping("/all/{id}")
+	public ResponseEntity<Map<String, Object>> getProductsByCategoryId(@PathVariable("id") Long id, @RequestParam(defaultValue = "0") int page,
 																		 @RequestParam(defaultValue = "10") int size){
 		Pageable paging = PageRequest.of(page, size);
-		Page<ProductDto> pageProducts=productService.findByCategoryName(name,paging);
+		Page<ProductDto> pageProducts=productService.findByCategoryId(id,paging);
 		return new ResponseEntity<>(responsePaging(pageProducts), HttpStatus.OK);
 	}
 	private Map<String, Object> responsePaging(Page<ProductDto> pageProducts){
@@ -75,6 +81,44 @@ public class ProductResource {
 	public ResponseEntity<DetailProductDto> getProductById(@PathVariable("id") Long id){
 		DetailProductDto product = productService.findProductById(id);
 		return new ResponseEntity<DetailProductDto>(product, HttpStatus.OK);
+	}
+	private String convertWithoutUnderStoke(String str){
+		return str.split("_")[0];
+	}
+	@GetMapping("/filter")
+	public ResponseEntity<Map<String, Object>> getFilter( @RequestParam()  Map<String, String> request){
+		int page[]={0,10};
+		System.out.println(Arrays.toString(page));
+		Page<ProductDto> productDtos ;
+		ProductSpecification productSpecifications = new ProductSpecification();
+		request.forEach((k, v) -> {
+			System.out.println("Key : " + k + ", Value : " + v);
+
+					if(k.endsWith("lte")){
+						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.LESS_THAN_EQUAL ,v));
+					}
+					else if(k.endsWith("gte")){
+						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.GREATER_THAN_EQUAL ,v));
+					} else if(k.equals("size")){
+						page[1]= Integer.parseInt(v);
+					}
+					else if(k.equals("page")){
+						page[0]= Integer.parseInt(v);
+					}
+					else{
+						productSpecifications.add(new Filter(k,QueryOperator.EQUAL ,v));
+					}
+		});
+		System.out.println(Arrays.toString(page));
+		Pageable paging = PageRequest.of(page[0], page[1]);
+
+//		msWatchTime.add(new Filter("price",QueryOperator.GREATER_THAN ,"17000000"));
+		Page<Product> products = productRepo.findAll(productSpecifications,paging);
+
+		productDtos =productConverter.convertToDto(products);
+
+		productDtos.forEach(System.out::println);
+		return new ResponseEntity<>(responsePaging(productDtos), HttpStatus.OK);
 	}
 
 	@PostMapping("/add")

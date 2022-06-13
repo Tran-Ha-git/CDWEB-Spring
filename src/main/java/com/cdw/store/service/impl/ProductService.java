@@ -94,8 +94,8 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Page<ProductDto> findByCategoryName(String categoryName, Pageable paging) {
-		return productConverter.convertToDto(productRepo.findProductsByCategogyName(categoryName,paging));
+	public Page<ProductDto> findByCategoryId(Long id, Pageable paging) {
+		return productConverter.convertToDto(productRepo.findProductsByCategoryId(id,paging));
 	}
 
 
