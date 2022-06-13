@@ -104,5 +104,10 @@ public class ProductService implements IProductService {
 		return productConverter.convertToDto(productRepo.findAll(paging));
 	}
 
+	@Override
+	public Long getQuantityProductByProductId(Long id) {
+		return productRepo.getQuantityProductByProductId(id);
+	}
+
 
 }
