@@ -21,4 +21,7 @@ public interface ProductRepo extends JpaRepository<Product, Long>{
 
 	@Query("SELECT quantity FROM Product p WHERE p.id = :id")
 	Long getQuantityProductByProductId(@Param("id") Long id);
+	
+	@Query("SELECT price-(price*(discount/100)) FROM Product p WHERE p.id = :id")
+	Long getOutputPriceProductByProductId(Long id);
 }

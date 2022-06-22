@@ -109,5 +109,10 @@ public class ProductService implements IProductService {
 		return productRepo.getQuantityProductByProductId(id);
 	}
 
+	@Override
+	public Long getOutputPriceProductById(Long id) {
+		return productRepo.getOutputPriceProductByProductId(id);
+	}
+
 
 }

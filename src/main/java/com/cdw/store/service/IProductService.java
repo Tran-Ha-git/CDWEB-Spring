@@ -23,5 +23,7 @@ public interface IProductService {
 	public Page<ProductDto>findByCategoryName(String categoryName,Pageable  paging);
 	public Page<ProductDto>findAll(Pageable  paging);
 
-	public Long getQuantityProductByProductId(Long id);
+	public Long getQuantityProductByProductId (Long id);
+
+	public Long getOutputPriceProductById (Long id);
 }

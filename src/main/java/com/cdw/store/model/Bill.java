@@ -41,10 +41,13 @@ public class Bill {
 	@Column(name = "updated_date")
 	private Date updatedDate;
 
+	@Column(name = "note")
+	private String note;
+
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "voucher_id")
-	private Voucher voucher;
+	private Voucher voucher; // should relation many-to-many
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -53,8 +56,8 @@ public class Bill {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, targetEntity = OrderDetail.class)
-	private List<OrderDetail> orderDetails =new ArrayList<>();
-	
+	private List<OrderDetail> orderDetails = new ArrayList<>();
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

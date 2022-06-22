@@ -76,6 +76,12 @@ public class ProductResource {
 		DetailProductDto product = productService.findProductById(id);
 		return new ResponseEntity<DetailProductDto>(product, HttpStatus.OK);
 	}
+	
+	@GetMapping("/{id}/price")
+	public ResponseEntity<Long> getOutputPriceProductById(@PathVariable("id") Long id){
+		Long price = productService.getOutputPriceProductById(id); //include: price-discount
+		return new ResponseEntity<Long>(price, HttpStatus.OK);
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto){

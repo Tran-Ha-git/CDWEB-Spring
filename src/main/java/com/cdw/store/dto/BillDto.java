@@ -16,4 +16,6 @@ public class BillDto {
 	private Integer status; // 0: dang giao, 1:da giao, 2:huy
 	private Date createdDate;
 	private Date updatedDate;
+	private String stringAddress;
+	private String currentPhone;
 }

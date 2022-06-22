@@ -13,7 +13,10 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `role` VALUES (1,'client'),(2,'admin');
+INSERT INTO `role` 
+VALUES 
+(1,'client'),
+(2,'admin');
 
 DROP TABLE IF EXISTS `user`;
   
@@ -31,7 +34,9 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `user` VALUES (1,NULL,NULL,NULL,NULL,'123',1,NULL,NULL,'u1'),(2,NULL,NULL,NULL,NULL,'123',1,NULL,NULL,'u2');
+INSERT INTO `user` VALUES 
+(1,NULL,NULL,NULL,NULL,'$2a$10$Wuvn5QeH9/hNzscjyV/DG.Oz1x2bf57KTMVjtrE/VOM8ifZE.2/TG',1,NULL,NULL,'u1'), /*pwd : 123456*/
+(2,NULL,NULL,NULL,NULL,'$2a$10$Wuvn5QeH9/hNzscjyV/DG.Oz1x2bf57KTMVjtrE/VOM8ifZE.2/TG',1,NULL,NULL,'u2');
 
 DROP TABLE IF EXISTS `user_role`;
   
@@ -66,7 +71,10 @@ CREATE TABLE `address` (
   CONSTRAINT `FKda8tuywtf0gb6sedwk7la1pgi` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `address` VALUES (1,'HCM',NULL,NULL,NULL,NULL,'AN',NULL,NULL,NULL,NULL,1),(2,'HCM',NULL,NULL,NULL,NULL,'Hải',NULL,NULL,NULL,NULL,2);
+INSERT INTO `address` 
+VALUES 
+(1,'HCM',NULL,NULL,NULL,NULL,'AN',NULL,NULL,NULL,NULL,1),
+(2,'HCM',NULL,NULL,NULL,NULL,'Hải',NULL,NULL,NULL,NULL,2);
 
 DROP TABLE IF EXISTS `category`;
   
@@ -100,11 +108,18 @@ CREATE TABLE `voucher` (
   `cost` bigint(20) DEFAULT NULL,
   `ended_date` datetime DEFAULT NULL,
   `started_date` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-INSERT INTO `voucher` VALUES (1,'aaa',10000,'2022-05-03 12:15:00','2022-05-10 12:15:00');
+INSERT INTO `cdweb2022`.`voucher` (`id`, `code`, `cost`, `ended_date`, `started_date`, `status`, `time`) 
+VALUES 
+('1', 'aaa', '20000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '4'),
+('2', 'bbb', '20000', '2022-6-17 12:15:00', '2022-4-17 12:15:00', '1', '1'),
+('3', 'ccc', '20000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '4'),
+('4', 'ddd', '20000', '2022-6-17 12:15:00', '2022-4-17 12:15:00', '1', '1');
 
 DROP TABLE IF EXISTS `bill`;
   
@@ -117,6 +132,7 @@ CREATE TABLE `bill` (
   `updated_date` datetime DEFAULT NULL,
   `address_id` bigint(20) DEFAULT NULL,
   `voucher_id` bigint(20) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK1f5an6dq4k8u0idf4oxthpf8t` (`address_id`),
   KEY `FKsp8lqd3ijs9y7t59djo0y1g1c` (`voucher_id`),
@@ -124,7 +140,7 @@ CREATE TABLE `bill` (
   CONSTRAINT `FKsp8lqd3ijs9y7t59djo0y1g1c` FOREIGN KEY (`voucher_id`) REFERENCES `voucher` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `bill` VALUES (1,'2022-05-03 12:15:00',40000,1,60000000,'2022-05-03 12:15:00',1,1);
+INSERT INTO `bill` VALUES (1,'2022-05-03 12:15:00',40000,1,60000000,'2022-05-03 12:15:00',1,1,'');
 
 
 DROP TABLE IF EXISTS `product`;
