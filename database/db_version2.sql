@@ -73,7 +73,7 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` 
 VALUES 
-(1,'HCM',NULL,NULL,NULL,NULL,'AN',NULL,NULL,NULL,NULL,1),
+ (1,'Tỉnh Cao Bằng',NULL,'Việt Nam',NULL,'Huyện Bảo Lạc','AN','0123456789','Cầu Kì','2022-06-22 18:10:55','Xã Thượng Hà',1),
 (2,'HCM',NULL,NULL,NULL,NULL,'Hải',NULL,NULL,NULL,NULL,2);
 
 DROP TABLE IF EXISTS `category`;
@@ -114,11 +114,11 @@ CREATE TABLE `voucher` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-INSERT INTO `cdweb2022`.`voucher` (`id`, `code`, `cost`, `ended_date`, `started_date`, `status`, `time`) 
+INSERT INTO `voucher` (`id`, `code`, `cost`, `ended_date`, `started_date`, `status`, `time`) 
 VALUES 
-('1', 'aaa', '20000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '4'),
+('1', 'aaa', '20000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '14'),
 ('2', 'bbb', '20000', '2022-6-17 12:15:00', '2022-4-17 12:15:00', '1', '1'),
-('3', 'ccc', '20000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '4'),
+('3', 'ccc', '40000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '4'),
 ('4', 'ddd', '20000', '2022-6-17 12:15:00', '2022-4-17 12:15:00', '1', '1');
 
 DROP TABLE IF EXISTS `bill`;
@@ -140,7 +140,10 @@ CREATE TABLE `bill` (
   CONSTRAINT `FKsp8lqd3ijs9y7t59djo0y1g1c` FOREIGN KEY (`voucher_id`) REFERENCES `voucher` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `bill` VALUES (1,'2022-05-03 12:15:00',40000,1,60000000,'2022-05-03 12:15:00',1,1,'');
+INSERT INTO `bill` 
+VALUES 
+(1,'2022-05-03 12:15:00',40000,1,60000000,'2022-05-03 12:15:00',1,1,''),
+(2,'2022-06-22 18:10:55',25000,0,15535300,'2022-06-22 18:10:55',1,NULL,'Gần nhà');
 
 
 DROP TABLE IF EXISTS `product`;
@@ -178,6 +181,7 @@ CREATE TABLE `image` (
   CONSTRAINT `FKgpextbyee3uk9u6o2381m7ft1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `image`
 VALUES (1,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh.png?v=1648702456317',1),
 (2,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-3.png?v=1648702456317',1),
 (3,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-2.png?v=1648702456317',1),
@@ -233,7 +237,7 @@ CREATE TABLE `order_detail` (
   CONSTRAINT `FKb8bg2bkty0oksa3wiq5mp5qnc` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `order_detail` VALUES (1,25000000,1,1,2);
+INSERT INTO `order_detail` VALUES (1,25000000,1,1,2),(2,15510300,1,2,1);
 
 DROP TABLE IF EXISTS `product_attribute`;
   
