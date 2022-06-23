@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Filter {
     private String key;
     private QueryOperator operator;
-    private String value;
+    private Object value;
 
 }
