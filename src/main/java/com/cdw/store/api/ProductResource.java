@@ -1,7 +1,9 @@
 package com.cdw.store.api;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.cdw.store.model.Filter;
 import com.cdw.store.model.QueryOperator;
@@ -85,34 +87,61 @@ ProductConverter productConverter;
 	private String convertWithoutUnderStoke(String str){
 		return str.split("_")[0];
 	}
+	private List<String> splitCommon(List<String> list){
+		return	list.stream()
+				.flatMap(Pattern.compile(",")::splitAsStream)
+				.collect(Collectors.toList());
+
+	}
 	@GetMapping("/filter")
-	public ResponseEntity<Map<String, Object>> getFilter( @RequestParam()  Map<String, String> request){
+	public ResponseEntity<Map<String, Object>> getFilter( @RequestParam()  MultiValueMap<String, String> request){
+
 		int page[]={0,10};
-		System.out.println(Arrays.toString(page));
+//		System.out.println(Arrays.toString(page));
 		Page<ProductDto> productDtos ;
 		ProductSpecification productSpecifications = new ProductSpecification();
-		request.forEach((k, v) -> {
-			System.out.println("Key : " + k + ", Value : " + v);
-
+		request.forEach((k, values) -> {
+//			System.out.println("Key : " + k + ", Value : " + values);
+//			System.out.println("Key : " + values.size() );
 					if(k.endsWith("lte")){
-						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.LESS_THAN_EQUAL ,v));
+						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.LESS_THAN_EQUAL ,values.get(0)));
 					}
 					else if(k.endsWith("gte")){
-						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.GREATER_THAN_EQUAL ,v));
+						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.GREATER_THAN_EQUAL ,values.get(0)));
 					} else if(k.equals("size")){
-						page[1]= Integer.parseInt(v);
+						page[1]= Integer.parseInt(values.get(0));
 					}
 					else if(k.equals("page")){
-						page[0]= Integer.parseInt(v);
+						page[0]= Integer.parseInt(values.get(0));
 					}
 					else{
-						productSpecifications.add(new Filter(k,QueryOperator.EQUAL ,v));
+						if(k.startsWith("category")){
+							splitCommon(values).forEach(value->{
+								productSpecifications.add(new Filter(k,QueryOperator.EQUAL ,value));
+							});
+						}else{
+							System.out.println("vao else");
+							System.out.println("chay xong name");
+							productSpecifications.add(new Filter("name",QueryOperator.EQUAL ,k));
+							System.out.println("chay xong value");
+							productSpecifications.add(new Filter("value",QueryOperator.EQUAL ,splitCommon(values)));
+
+//							IntStream.range(0, splitCommon(values).size())
+//									.forEach(index -> {
+//										String value=splitCommon(values).get(index);
+//										System.out.println(k+" = "+value);
+//										productSpecifications.add(new Filter("value",QueryOperator.EQUAL ,value));
+//
+//									});
+						}
+
+
+
 					}
 		});
 		System.out.println(Arrays.toString(page));
 		Pageable paging = PageRequest.of(page[0], page[1]);
 
-//		msWatchTime.add(new Filter("price",QueryOperator.GREATER_THAN ,"17000000"));
 		Page<Product> products = productRepo.findAll(productSpecifications,paging);
 
 		productDtos =productConverter.convertToDto(products);

@@ -18,6 +18,7 @@ public interface ProductRepo extends JpaRepository<Product, Long>, JpaSpecificat
     List<Product> search(String keyword);
     Page<Product> findByNameContainingIgnoreCase(String q, Pageable pageable);
 
+//    @Query("Select distinct p from Product p join p.attributes a join a.category c where c.id = :id")
     @Query("Select distinct p from Product p join p.attributes a join a.category c where c.id = :id")
         Page<Product> findProductsByCategoryId(Long id, Pageable pageable);
 
