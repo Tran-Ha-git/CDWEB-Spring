@@ -29,6 +29,7 @@ public class CategoryResource {
 		if(categoryService.findAll().size()>0) {
 			categoryService.findAll().forEach(category->{
 				MenuDto menuDto= new MenuDto();
+				menuDto.setId(category.getId());
 				menuDto.setCategoryName(category.getName());
 				category.getAttributes().forEach(attr->{
 					if(attr.getName().equals("THƯƠNG HIỆU")) {

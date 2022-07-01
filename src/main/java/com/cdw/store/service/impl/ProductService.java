@@ -2,12 +2,10 @@ package com.cdw.store.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -94,8 +92,8 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Page<ProductDto> findByCategoryName(String categoryName, Pageable paging) {
-		return productConverter.convertToDto(productRepo.findProductsByCategogyName(categoryName,paging));
+	public Page<ProductDto> findByCategoryId(Long id, Pageable paging) {
+		return productConverter.convertToDto(productRepo.findProductsByCategoryId(id,paging));
 	}
 
 

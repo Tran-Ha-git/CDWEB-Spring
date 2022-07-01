@@ -3,8 +3,6 @@ package com.cdw.store.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cdw.store.dto.AddressDto;
-import com.cdw.store.model.Address;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

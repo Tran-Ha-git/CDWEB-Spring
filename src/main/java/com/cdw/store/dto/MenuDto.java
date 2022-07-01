@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MenuDto {
+	private Long id;
 	private String categoryName;
 	private List<String> brands= new ArrayList<String>();
 }
