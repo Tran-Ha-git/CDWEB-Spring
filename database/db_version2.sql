@@ -182,26 +182,21 @@ CREATE TABLE `image` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `image`
-VALUES (1,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh.png?v=1648702456317',1),
-(2,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-3.png?v=1648702456317',1),
-(3,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-2.png?v=1648702456317',1),
-(4,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-dell-inspiron-16-5625-70281537.png?v=1650264869833',2),
-(5,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-16-5625-2.png?v=1650264871713',2),
-(6,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-16-5625-1.png?v=1650264871713',2),
-(7,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003.png?v=1650623448350',3),
-(8,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-3.png?v=1650623448350',3),
-(9,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-2.png?v=1650623448350',3),
-(10,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-dell-inspiron-15-3511-70270652.png?v=1646630760913',4),
-(11,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-15-3511-70270650-6-a1ac66eb-4a80-4f42-aafe-58f031578cef.png?v=1646630762337',4),
-(12,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-15-3511-70270650-2-645e50dc-f1ad-4d61-831f-6f1df99cd063.png?v=1646630762337',4),
-(13,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-hp-probook-430-g8-614k7pa.png?v=1649315244117',5),
-(14,'https://bizweb.sapocdn.net/100/329/122/products/laptop-hp-probook-430-g8-614k9pa-4-2e0fab15-c0da-4156-b15a-953861447c3d.png?v=1649315245997',5),
-(15,'https://bizweb.sapocdn.net/100/329/122/products/laptop-hp-probook-430-g8-614k9pa-1-8e366d79-7676-4ac2-838e-a01262e11d8d.png?v=1649315245997',5),
-(16,'//bizweb.sapocdn.net/100/329/122/files/screenshot-1648700593.jpg?v=1648700644129',1),
-(17,'https://bizweb.sapocdn.net/100/329/122/files/laptop-inspiron-16-5625-pdp-mod01-fpr.jpg?v=1648199714183',2),
-(18,'https://bizweb.sapocdn.net/100/329/122/files/predator-triton-300.jpg?v=1650621081903',3),
-(19,'https://bizweb.sapocdn.net/100/329/122/files/dell-inspiron-15-3511-i5-70267060-8-1.jpg?v=1639383263823',4),
-(20,'https://bizweb.sapocdn.net/100/329/122/files/c07046023.jpg?v=1638416952108',5);
+VALUES (1,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh.webp',1),
+(2,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-3.webp',1),
+(3,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-2.webp',1),
+(4,'laptop-dell-inspiron-16-5625-70281537.webp',2),
+(5,'laptop-dell-inspiron-16-5625-2.webp',2),
+(6,'laptop-dell-inspiron-16-5625-1.webp',2),
+(7,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003.webp',3),
+(8,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-3.webp',3),
+(9,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-2.webp',3),
+(10,'laptop-dell-inspiron-15-3511-70270652.webp',4),
+(11,'laptop-dell-inspiron-15-3511-70270650-6-a1ac66eb-4a80-4f42-aafe-58f031578cef.webp',4),
+(12,'laptop-dell-inspiron-15-3511-70270650-2-645e50dc-f1ad-4d61-831f-6f1df99cd063.webp',4),
+(13,'laptop-hp-probook-430-g8-614k7pa.webp',5),
+(14,'laptop-hp-probook-430-g8-614k9pa-4-2e0fab15-c0da-4156-b15a-953861447c3d.webp',5),
+(15,'laptop-hp-probook-430-g8-614k9pa-1-8e366d79-7676-4ac2-838e-a01262e11d8d.webp',5);
 
 DROP TABLE IF EXISTS `comment`;
   
