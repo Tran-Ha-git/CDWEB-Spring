@@ -84,6 +84,14 @@ ProductConverter productConverter;
 		DetailProductDto product = productService.findProductById(id);
 		return new ResponseEntity<DetailProductDto>(product, HttpStatus.OK);
 	}
+
+	
+	@GetMapping("/{id}/price")
+	public ResponseEntity<Long> getOutputPriceProductById(@PathVariable("id") Long id){
+		Long price = productService.getOutputPriceProductById(id); //include: price-discount
+		return new ResponseEntity<Long>(price, HttpStatus.OK);
+	}
+	
 	private String convertWithoutUnderStoke(String str){
 		return str.split("_")[0];
 	}

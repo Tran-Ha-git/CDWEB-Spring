@@ -13,7 +13,10 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `role` VALUES (1,'client'),(2,'admin');
+INSERT INTO `role` 
+VALUES 
+(1,'client'),
+(2,'admin');
 
 DROP TABLE IF EXISTS `user`;
   
@@ -31,7 +34,9 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `user` VALUES (1,NULL,NULL,NULL,NULL,'123',1,NULL,NULL,'u1'),(2,NULL,NULL,NULL,NULL,'123',1,NULL,NULL,'u2');
+INSERT INTO `user` VALUES 
+(1,NULL,NULL,NULL,NULL,'$2a$10$Wuvn5QeH9/hNzscjyV/DG.Oz1x2bf57KTMVjtrE/VOM8ifZE.2/TG',1,NULL,NULL,'u1'), /*pwd : 123456*/
+(2,NULL,NULL,NULL,NULL,'$2a$10$Wuvn5QeH9/hNzscjyV/DG.Oz1x2bf57KTMVjtrE/VOM8ifZE.2/TG',1,NULL,NULL,'u2');
 
 DROP TABLE IF EXISTS `user_role`;
   
@@ -66,7 +71,10 @@ CREATE TABLE `address` (
   CONSTRAINT `FKda8tuywtf0gb6sedwk7la1pgi` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `address` VALUES (1,'HCM',NULL,NULL,NULL,NULL,'AN',NULL,NULL,NULL,NULL,1),(2,'HCM',NULL,NULL,NULL,NULL,'Hải',NULL,NULL,NULL,NULL,2);
+INSERT INTO `address` 
+VALUES 
+ (1,'Tỉnh Cao Bằng',NULL,'Việt Nam',NULL,'Huyện Bảo Lạc','AN','0123456789','Cầu Kì','2022-06-22 18:10:55','Xã Thượng Hà',1),
+(2,'HCM',NULL,NULL,NULL,NULL,'Hải',NULL,NULL,NULL,NULL,2);
 
 DROP TABLE IF EXISTS `category`;
   
@@ -100,11 +108,18 @@ CREATE TABLE `voucher` (
   `cost` bigint(20) DEFAULT NULL,
   `ended_date` datetime DEFAULT NULL,
   `started_date` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-INSERT INTO `voucher` VALUES (1,'aaa',10000,'2022-05-03 12:15:00','2022-05-10 12:15:00');
+INSERT INTO `voucher` (`id`, `code`, `cost`, `ended_date`, `started_date`, `status`, `time`) 
+VALUES 
+('1', 'aaa', '20000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '14'),
+('2', 'bbb', '20000', '2022-6-17 12:15:00', '2022-4-17 12:15:00', '1', '1'),
+('3', 'ccc', '40000', '2022-10-17 12:15:00', '2022-5-17 12:15:00', '1', '4'),
+('4', 'ddd', '20000', '2022-6-17 12:15:00', '2022-4-17 12:15:00', '1', '1');
 
 DROP TABLE IF EXISTS `bill`;
   
@@ -117,6 +132,7 @@ CREATE TABLE `bill` (
   `updated_date` datetime DEFAULT NULL,
   `address_id` bigint(20) DEFAULT NULL,
   `voucher_id` bigint(20) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK1f5an6dq4k8u0idf4oxthpf8t` (`address_id`),
   KEY `FKsp8lqd3ijs9y7t59djo0y1g1c` (`voucher_id`),
@@ -124,7 +140,10 @@ CREATE TABLE `bill` (
   CONSTRAINT `FKsp8lqd3ijs9y7t59djo0y1g1c` FOREIGN KEY (`voucher_id`) REFERENCES `voucher` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `bill` VALUES (1,'2022-05-03 12:15:00',40000,1,60000000,'2022-05-03 12:15:00',1,1);
+INSERT INTO `bill` 
+VALUES 
+(1,'2022-05-03 12:15:00',40000,1,60000000,'2022-05-03 12:15:00',1,1,''),
+(2,'2022-06-22 18:10:55',25000,0,15535300,'2022-06-22 18:10:55',1,NULL,'Gần nhà');
 
 
 DROP TABLE IF EXISTS `product`;
@@ -162,26 +181,22 @@ CREATE TABLE `image` (
   CONSTRAINT `FKgpextbyee3uk9u6o2381m7ft1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-VALUES (1,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh.png?v=1648702456317',1),
-(2,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-3.png?v=1648702456317',1),
-(3,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-2.png?v=1648702456317',1),
-(4,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-dell-inspiron-16-5625-70281537.png?v=1650264869833',2),
-(5,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-16-5625-2.png?v=1650264871713',2),
-(6,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-16-5625-1.png?v=1650264871713',2),
-(7,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003.png?v=1650623448350',3),
-(8,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-3.png?v=1650623448350',3),
-(9,'https://bizweb.sapocdn.net/100/329/122/products/laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-2.png?v=1650623448350',3),
-(10,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-dell-inspiron-15-3511-70270652.png?v=1646630760913',4),
-(11,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-15-3511-70270650-6-a1ac66eb-4a80-4f42-aafe-58f031578cef.png?v=1646630762337',4),
-(12,'https://bizweb.sapocdn.net/100/329/122/products/laptop-dell-inspiron-15-3511-70270650-2-645e50dc-f1ad-4d61-831f-6f1df99cd063.png?v=1646630762337',4),
-(13,'https://bizweb.sapocdn.net/thumb/1024x1024/100/329/122/products/laptop-hp-probook-430-g8-614k7pa.png?v=1649315244117',5),
-(14,'https://bizweb.sapocdn.net/100/329/122/products/laptop-hp-probook-430-g8-614k9pa-4-2e0fab15-c0da-4156-b15a-953861447c3d.png?v=1649315245997',5),
-(15,'https://bizweb.sapocdn.net/100/329/122/products/laptop-hp-probook-430-g8-614k9pa-1-8e366d79-7676-4ac2-838e-a01262e11d8d.png?v=1649315245997',5),
-(16,'//bizweb.sapocdn.net/100/329/122/files/screenshot-1648700593.jpg?v=1648700644129',1),
-(17,'https://bizweb.sapocdn.net/100/329/122/files/laptop-inspiron-16-5625-pdp-mod01-fpr.jpg?v=1648199714183',2),
-(18,'https://bizweb.sapocdn.net/100/329/122/files/predator-triton-300.jpg?v=1650621081903',3),
-(19,'https://bizweb.sapocdn.net/100/329/122/files/dell-inspiron-15-3511-i5-70267060-8-1.jpg?v=1639383263823',4),
-(20,'https://bizweb.sapocdn.net/100/329/122/files/c07046023.jpg?v=1638416952108',5);
+INSERT INTO `image`
+VALUES (1,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh.webp',1),
+(2,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-3.webp',1),
+(3,'laptop-gaming-gigabyte-aorus-17-xe5-73vn534gh-2.webp',1),
+(4,'laptop-dell-inspiron-16-5625-70281537.webp',2),
+(5,'laptop-dell-inspiron-16-5625-2.webp',2),
+(6,'laptop-dell-inspiron-16-5625-1.webp',2),
+(7,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003.webp',3),
+(8,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-3.webp',3),
+(9,'laptop-gaming-acer-predator-triton-300-pt315-53-7440-nh-qdrsv-003-2.webp',3),
+(10,'laptop-dell-inspiron-15-3511-70270652.webp',4),
+(11,'laptop-dell-inspiron-15-3511-70270650-6-a1ac66eb-4a80-4f42-aafe-58f031578cef.webp',4),
+(12,'laptop-dell-inspiron-15-3511-70270650-2-645e50dc-f1ad-4d61-831f-6f1df99cd063.webp',4),
+(13,'laptop-hp-probook-430-g8-614k7pa.webp',5),
+(14,'laptop-hp-probook-430-g8-614k9pa-4-2e0fab15-c0da-4156-b15a-953861447c3d.webp',5),
+(15,'laptop-hp-probook-430-g8-614k9pa-1-8e366d79-7676-4ac2-838e-a01262e11d8d.webp',5);
 
 DROP TABLE IF EXISTS `comment`;
   
@@ -191,7 +206,9 @@ CREATE TABLE `comment` (
   `created_date` datetime DEFAULT NULL,
   `star` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `url` varchar(255)    DEFAULT NULL,
+  `url` text  DEFAULT NULL,
+  `phone` varchar(50)    DEFAULT NULL,
+  `fullname` varchar(150)    DEFAULT NULL,
   `product_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -217,7 +234,7 @@ CREATE TABLE `order_detail` (
   CONSTRAINT `FKb8bg2bkty0oksa3wiq5mp5qnc` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `order_detail` VALUES (1,25000000,1,1,2);
+INSERT INTO `order_detail` VALUES (1,25000000,1,1,2),(2,15510300,1,2,1);
 
 DROP TABLE IF EXISTS `product_attribute`;
   

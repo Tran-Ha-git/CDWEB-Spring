@@ -32,18 +32,25 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(columnDefinition = "Text", length = 1000)
 	private String content;
 	private Integer status;
 	private Integer star;
-	@Column(name = "url")
-	private String urlImg;
+	@Column(name = "url", columnDefinition = "Text")
+	private String urlImg; //list separated by commas
+	
+	@Column(length = 50)
+	private String phone;
+	
+	@Column(length = 150)
+	private String fullname;
 	
 	@Column(name = "created_date")
 	private Date createdDate;
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = true)
 	private User userComment;
 	
 	@JsonIgnore
