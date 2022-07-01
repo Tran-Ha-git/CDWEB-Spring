@@ -14,4 +14,5 @@ public class OrderDetailDto {
 	private Integer quantity;
 	private Long price;
 	private String name;
+	private String img;
 }

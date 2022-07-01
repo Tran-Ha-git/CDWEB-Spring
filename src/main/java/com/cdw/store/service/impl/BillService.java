@@ -23,6 +23,7 @@ import com.cdw.store.model.Product;
 import com.cdw.store.model.User;
 import com.cdw.store.repo.AddressRepo;
 import com.cdw.store.repo.BillRepo;
+import com.cdw.store.repo.ImageRepo;
 import com.cdw.store.repo.OrderDetailRepo;
 import com.cdw.store.repo.ProductRepo;
 import com.cdw.store.service.IBillService;
@@ -45,6 +46,9 @@ public class BillService implements IBillService {
 	@Autowired
 	private ProductRepo productRepo;
 
+	@Autowired
+	private ImageRepo imageRepo;
+	
 	@Override
 	public List<BillDto> findAll() {
 		List<Bill> bills = billRepo.findAll();
@@ -102,6 +106,7 @@ public class BillService implements IBillService {
 				.orElseThrow(() -> new RuntimeException("Bill by id = " + id + " was not found"));
 		DetailBillDto dto = new DetailBillDto();
 		BeanUtils.copyProperties(bill, dto);
+		
 		dto.setVoucherCost(bill.getVoucher() != null ? bill.getVoucher().getCost() : 0);
 		Address address = bill.getAddress();
 		dto.setPhone(address.getPhone());
@@ -119,12 +124,15 @@ public class BillService implements IBillService {
 		dto.setAddress(sb.toString());
 		dto.setMethod("Thanh toán khi nhận hàng");
 		dto.setShippingTime("Khoảng 2-4 ngày");
+		
 		List<OrderDetailDto> orderDetails = bill.getOrderDetails().stream().map((item) -> {
 			OrderDetailDto detailDto = new OrderDetailDto();
 			detailDto.setId(item.getId());
 			detailDto.setName(item.getProductDetail().getName());
 			detailDto.setPrice(item.getPrice());
 			detailDto.setQuantity(item.getQuantity());
+			
+			detailDto.setImg(imageRepo.findTopByProductId(item.getId()).getLink());
 			return detailDto;
 		}).collect(Collectors.toList());
 		dto.setOrderDetails(orderDetails);
