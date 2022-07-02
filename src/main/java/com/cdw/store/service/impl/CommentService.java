@@ -14,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.cdw.store.dto.CommentDto;
+import com.cdw.store.exception.ProductNotFoundException;
+import com.cdw.store.exception.UserNotFoundException;
 import com.cdw.store.model.Comment;
 import com.cdw.store.model.Product;
 import com.cdw.store.model.User;
@@ -40,15 +42,14 @@ public class CommentService implements ICommentService {
 		comment.setCreatedDate(new Date());
 		comment.setId(null);
 		
-		Product product = productRepo.findById(commentDto.getProductId()).orElseThrow(() -> {
-			throw new RuntimeException("Product is not found by id = " + commentDto.getProductId());
-		});
+		Product product = productRepo.findById(commentDto.getProductId())
+				.orElseThrow(() -> new ProductNotFoundException("Product by id = " + commentDto.getProductId() + " was not found"));
 		comment.setProductComment(product);
 
 		if (commentDto.getUserId() != -1l) {
-			User user = userRepo.findById(commentDto.getUserId()).orElseThrow(() -> {
-				throw new RuntimeException("User is not found by id = " + commentDto.getUserId());
-			});
+			User user = userRepo.findById(commentDto.getUserId()).orElseThrow(
+					()-> new UserNotFoundException("User by id = " + commentDto.getUserId() + " was not found"));
+					
 			comment.setUserComment(user);
 		}
 
