@@ -105,49 +105,38 @@ ProductConverter productConverter;
 	public ResponseEntity<Map<String, Object>> getFilter( @RequestParam()  MultiValueMap<String, String> request){
 
 		int page[]={0,10};
-//		System.out.println(Arrays.toString(page));
 		Page<ProductDto> productDtos ;
 		ProductSpecification productSpecifications = new ProductSpecification();
-		request.forEach((k, values) -> {
+		request.forEach((k, value) -> {
 //			System.out.println("Key : " + k + ", Value : " + values);
 //			System.out.println("Key : " + values.size() );
 					if(k.endsWith("lte")){
-						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.LESS_THAN_EQUAL ,values.get(0)));
+						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.LESS_THAN_EQUAL ,value.get(0)));
 					}
 					else if(k.endsWith("gte")){
-						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.GREATER_THAN_EQUAL ,values.get(0)));
+						productSpecifications.add(new Filter(convertWithoutUnderStoke(k),QueryOperator.GREATER_THAN_EQUAL ,value.get(0)));
 					} else if(k.equals("size")){
-						page[1]= Integer.parseInt(values.get(0));
+						page[1]= Integer.parseInt(value.get(0));
 					}
 					else if(k.equals("page")){
-						page[0]= Integer.parseInt(values.get(0));
+						page[0]= Integer.parseInt(value.get(0));
 					}
 					else{
 						if(k.startsWith("category")){
-							splitCommon(values).forEach(value->{
-								productSpecifications.add(new Filter(k,QueryOperator.EQUAL ,value));
-							});
-						}else{
-							System.out.println("vao else");
-							System.out.println("chay xong name");
-							productSpecifications.add(new Filter("name",QueryOperator.EQUAL ,k));
-							System.out.println("chay xong value");
-							productSpecifications.add(new Filter("value",QueryOperator.EQUAL ,splitCommon(values)));
+								productSpecifications.add(new Filter(k,QueryOperator.EQUAL ,value.get(0)));
 
-//							IntStream.range(0, splitCommon(values).size())
-//									.forEach(index -> {
-//										String value=splitCommon(values).get(index);
-//										System.out.println(k+" = "+value);
-//										productSpecifications.add(new Filter("value",QueryOperator.EQUAL ,value));
-//
-//									});
+						}else{
+							System.out.println("zo cuoi");
+							productSpecifications.add(new Filter("name",QueryOperator.EQUAL ,k));
+							productSpecifications.add(new Filter("value",QueryOperator.EQUAL ,splitCommon(value)));
+
 						}
 
 
 
 					}
 		});
-		System.out.println(Arrays.toString(page));
+		System.out.println("[page,size]"+Arrays.toString(page));
 		Pageable paging = PageRequest.of(page[0], page[1]);
 
 		Page<Product> products = productRepo.findAll(productSpecifications,paging);

@@ -15,14 +15,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Stream;
 @Service
-public class ImageStorageSerive implements IStorageService {
+public class ImageStorageService implements IStorageService {
 
     private final Path storageFolder = Paths.get("uploads");
-    public ImageStorageSerive(){
+    public ImageStorageService(){
         try{
             Files.createDirectories(storageFolder);
         }catch (IOException e){
