@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BillDto {
+public class CommentDto {
 	private Long id;
-	private Long shippingCost;
-	private Long total;
-	private Integer status; // 0: dang giao, 1:da giao, 2:huy
+	private String content;
+	private Integer status;
+	private Integer star;
+	private String urlImg;
+	private String phone;
+	private String fullname;
 	private Date createdDate;
-	private Date updatedDate;
-	private String stringAddress;
-	private String currentPhone;
+	private Long userId;
+	private Long productId;
 }

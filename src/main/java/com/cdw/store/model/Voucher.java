@@ -35,6 +35,10 @@ public class Voucher {
 	private Date startedDate;
 	@Column(name = "ended_date")
 	private Date endedDate;
+	@Column(name = "status")
+	private Integer status;
+	@Column(name = "time")
+	private Integer time;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
