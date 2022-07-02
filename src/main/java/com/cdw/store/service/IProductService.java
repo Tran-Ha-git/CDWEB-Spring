@@ -3,6 +3,7 @@ package com.cdw.store.service;
 import java.util.List;
 
 import com.cdw.store.dto.DetailProductDto;
+import com.cdw.store.dto.ImageDto;
 import com.cdw.store.dto.ProductDto;
 import com.cdw.store.model.Product;
 import org.springframework.data.domain.Page;
