@@ -2,7 +2,10 @@ package com.cdw.store.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.cdw.store.dto.UserDto;
+import com.cdw.store.dto.UserInAdminDto;
 import com.cdw.store.model.User;
 
 public interface IUserService {
@@ -21,4 +24,12 @@ public interface IUserService {
 	public boolean existsByEmail(String email);
 
 	public List<UserDto> getUsers();
+
+	public UserDto addUser(UserDto user);
+
+	public Page<UserInAdminDto> getUsersInAdmin(Integer page, Integer size);
+
+	public boolean updateDeletedStatus(Long id);
+
+	public boolean updateDeletedStatus(Long[] ids);
 }
