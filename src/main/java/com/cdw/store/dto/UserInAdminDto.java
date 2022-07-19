@@ -10,16 +10,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class UserInAdminDto {
 	private Long id;
 	private String username;
 	private String email;
-	private String password;
 	private Date birthday;
 	private Integer gender;
 	private Integer status;
-	private String token;
-	private Date createdDate;
-	private Date updatedDate;
 	private List<String> roles = new ArrayList<String>();
+	private Integer numBills;
+	private Integer numComments;
+	private Integer numAddresses;
 }
