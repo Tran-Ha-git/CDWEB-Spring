@@ -385,7 +385,16 @@ INSERT INTO `image` VALUES (152,'laptop-lenovo-thinkbook-15-g3-acl-21a400chvn-75
     (157,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-3-828a7a50-9a92-4b3e-9765-bf4c3bbaf763.webp',12),
     (158,'laptop-lenovo-thinkbook-15-g3-acl-21a400cfvn-1-08c270d6-4547-4c44-a3d5-be6642a0acea.webp',12);
 
-
+    /*password = 1234567*/
+INSERT INTO `user` (
+`id`, `birthday`, `created_date`, `email`, `gender`, `password`, `status`, `token`, `updated_date`,`username`) 
+ VALUES ('4', '1980-01-15 00:00:00', '2022-07-19 10:47:48', '18130064@st.hcmuaf.edu.vn', '1', '$2a$10$0Dfv6mLWOvfHIEQt24FkEeVWbaa3ZNiSY/bkffWX2i..cmvEb7mzC', '1', null, '2022-07-19 10:47:48', 'u4');
+INSERT INTO `user` (
+`id`, `birthday`, `created_date`, `email`, `gender`, `password`, `status`, `token`, `updated_date`,`username`) 
+ VALUES ('5', '1998-01-15 00:00:00', '2022-07-19 10:47:48', 'hochiminhvilanhtuuvidai@gmail.com', '1', '$2a$10$0Dfv6mLWOvfHIEQt24FkEeVWbaa3ZNiSY/bkffWX2i..cmvEb7mzC', '1', null, '2022-07-19 10:47:48', 'u5');
+INSERT INTO `user` (
+`id`, `birthday`, `created_date`, `email`, `gender`, `password`, `status`, `token`, `updated_date`,`username`) 
+ VALUES ('6', '1998-01-15 00:00:00', '2022-07-19 10:47:48', 'tranquangtuyen326326@gmail.com', '1', '$2a$10$0Dfv6mLWOvfHIEQt24FkEeVWbaa3ZNiSY/bkffWX2i..cmvEb7mzC', '1', null, '2022-07-19 10:47:48', 'u6');
 
 
 

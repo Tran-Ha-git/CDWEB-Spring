@@ -2,6 +2,8 @@ package com.cdw.store.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -57,6 +59,24 @@ public class UserResource {
 	@GetMapping("/editStatus")
 	public ResponseEntity<Boolean> updateDeletedStatus(@RequestParam Long[] id) {
 		boolean result = userService.updateDeletedStatus(id);
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+
+	@GetMapping("/forgot_password")
+	public ResponseEntity<Boolean> processForgotPassword(@RequestParam String email) {
+		boolean result = userService.processForgotPassword(email);
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+
+	@PostMapping("/reset_password")
+	public ResponseEntity<Boolean> changePassword(@RequestBody UserDto user) {
+		Boolean result = userService.updatePassword(user.getToken(), user.getPassword());
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+
+	@GetMapping("/checkToken")
+	public ResponseEntity<Boolean> checkValidToken(@RequestParam String token) {
+		boolean result = userService.checkValidToken(token);
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
 }

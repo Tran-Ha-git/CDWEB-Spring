@@ -2,6 +2,8 @@ package com.cdw.store.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.data.domain.Page;
 
 import com.cdw.store.dto.UserDto;
@@ -32,4 +34,11 @@ public interface IUserService {
 	public boolean updateDeletedStatus(Long id);
 
 	public boolean updateDeletedStatus(Long[] ids);
+
+	public boolean processForgotPassword(String email);
+
+	public boolean updatePassword(String token, String password);
+
+	public boolean checkValidToken(String token);
+
 }
