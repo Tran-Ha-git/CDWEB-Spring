@@ -3,6 +3,9 @@ package com.cdw.store.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cdw.store.dto.ProductAddDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ import com.cdw.store.model.Product;
 
 @Service
 public class ProductConverter {
+	@Autowired
+	private ModelMapper modelMapper;
 	public Product convertToEntity(ProductDto dto) {
 		Product entity= new Product();
 		entity.setId(dto.getId());
@@ -85,5 +90,8 @@ public class ProductConverter {
 		dto.setDescription_full(entity.getLongDescription());
 		dto.setDescription_short(entity.getShortDescription());
 		return dto;
+	}
+	public Product convertAddProductToEntity(ProductAddDto productAddDto){
+		return modelMapper.map(productAddDto,Product.class);
 	}
 }

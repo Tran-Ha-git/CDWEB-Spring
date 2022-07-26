@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,17 @@ public class FileUploadController {
     private IStorageService storageService;
 
     @PostMapping("")
-    public ResponseEntity<String> uploadFile(@RequestParam("file")MultipartFile file){
+    public ResponseEntity<List<String>> uploadFile(@RequestParam("file")MultipartFile[] file){
+      List<String> listImage = new ArrayList<>();
         try{
-            String generatedFileName = storageService.storeFile(file);
-            return new ResponseEntity<>(generatedFileName, HttpStatus.OK);
+            for(int i=0;i<file.length;i++){
+                String generatedFileName = storageService.storeFile(file[i]);
+                listImage.add(generatedFileName);
+            }
+
+            return new ResponseEntity<>(listImage, HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<>("", HttpStatus.NOT_IMPLEMENTED);
+            return new ResponseEntity<>(listImage, HttpStatus.NOT_IMPLEMENTED);
         }
     }
     @GetMapping("/files/{fileName:.+}")

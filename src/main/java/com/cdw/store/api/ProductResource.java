@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.cdw.store.dto.ProductAddDto;
 import com.cdw.store.model.Filter;
 import com.cdw.store.model.QueryOperator;
 import com.cdw.store.repo.ProductRepo;
@@ -54,7 +55,7 @@ ProductConverter productConverter;
 															 @RequestParam(defaultValue = "10") int size){
 		Pageable paging = PageRequest.of(page, size);
 		Page<ProductDto> pageProducts;
-		if(q==null){
+		if(q.equals("")){
 			pageProducts=productService.findAll(paging);
 		}else{
 				pageProducts=productService.searchAndPaging(q,paging);
@@ -148,16 +149,18 @@ ProductConverter productConverter;
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto){
-		ProductDto newProduct = productService.addProduct(productDto);
+	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductAddDto productAddDto){
+		System.out.println(productAddDto.getLongDescription());
+		ProductDto newProduct = productService.addProduct(productAddDto);
+
 		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update")
-	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto){
-		ProductDto updateProduct = productService.addProduct(productDto);
-		return new ResponseEntity<ProductDto>(updateProduct, HttpStatus.OK);
-	}
+//	@PutMapping("/update")
+//	public ResponseEntity<DetailProductDto> updateProduct(@RequestBody DetailProductDto detailProductDto){
+//		ProductDto updateProduct = productService.addProduct(detailProductDto);
+//		return new ResponseEntity<DetailProductDto>(updateProduct, HttpStatus.OK);
+//	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
