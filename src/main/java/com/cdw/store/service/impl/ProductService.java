@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.cdw.store.dto.ProductAddDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +29,8 @@ public class ProductService implements IProductService {
 	private ProductRepo productRepo;
 
 	@Override
-	public ProductDto addProduct(ProductDto productDto) {
-		Product product = productConverter.convertToEntity(productDto);
+	public ProductDto addProduct(ProductAddDto productAddDto) {
+		Product product = productConverter.convertAddProductToEntity(productAddDto);
 		return productConverter.convertToDto(productRepo.save(product));
 	}
 
@@ -110,6 +111,17 @@ public class ProductService implements IProductService {
 	@Override
 	public Long getOutputPriceProductById(Long id) {
 		return productRepo.getOutputPriceProductByProductId(id);
+	}
+
+	@Override
+	public String getLongDescription(Long id) {
+		return productRepo.getLongDescriptionById(id);
+	}
+
+	@Override
+	public void updateProduct(ProductAddDto productAddDto) {
+		Product product = productConverter.convertAddProductToEntity(productAddDto);
+		 productRepo.save(product);
 	}
 
 
