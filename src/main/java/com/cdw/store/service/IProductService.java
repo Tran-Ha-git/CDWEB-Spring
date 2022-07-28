@@ -28,4 +28,7 @@ public interface IProductService {
 	public Long getQuantityProductByProductId (Long id);
 
 	public Long getOutputPriceProductById (Long id);
+
+	public String getLongDescription(Long id);
+	void updateProduct(ProductAddDto productAddDto);
 }

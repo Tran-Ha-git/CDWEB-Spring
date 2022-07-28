@@ -156,11 +156,11 @@ ProductConverter productConverter;
 		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
 	}
 
-//	@PutMapping("/update")
-//	public ResponseEntity<DetailProductDto> updateProduct(@RequestBody DetailProductDto detailProductDto){
-//		ProductDto updateProduct = productService.addProduct(detailProductDto);
-//		return new ResponseEntity<DetailProductDto>(updateProduct, HttpStatus.OK);
-//	}
+	@PutMapping("/update")
+	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductAddDto productAddDto){
+		 ProductDto product= productService.addProduct(productAddDto);
+		return new ResponseEntity<>(product, HttpStatus.OK);
+	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
@@ -173,6 +173,11 @@ ProductConverter productConverter;
 	public ResponseEntity<Long> getQuantityProduct(@PathVariable("id") Long id){
 		Long quantity = productService.getQuantityProductByProductId(id);
 		return new ResponseEntity<Long>(quantity, HttpStatus.OK);
+	}
+	@GetMapping("/{id}/description")
+	public ResponseEntity<String> getLongDescription(@PathVariable("id") Long id){
+		String desc = productService.getLongDescription(id);
+		return new ResponseEntity<String>(desc, HttpStatus.OK);
 	}
 
 }

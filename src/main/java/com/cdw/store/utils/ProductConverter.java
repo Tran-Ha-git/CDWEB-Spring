@@ -26,6 +26,7 @@ public class ProductConverter {
 		entity.setSummary(dto.getDesc());
 		entity.setPrice(dto.getPrice());
 		entity.setDiscount(dto.getDiscount());
+		entity.setStatus(dto.getStatus());
 		return entity;
 	}
 	public Page<ProductDto> convertToDto(Page<Product> pageEntity){
@@ -41,6 +42,7 @@ public class ProductConverter {
 		dto.setDesc(entity.getSummary());
 		dto.setPrice(entity.getPrice());
 		dto.setDiscount(entity.getDiscount());
+		dto.setStatus(entity.getStatus());
 		if(entity.getImages().size()>0){
 			dto.setUrlImg(entity.getImages().get(0).getLink());
 		}

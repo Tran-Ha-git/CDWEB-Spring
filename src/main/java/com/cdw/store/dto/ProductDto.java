@@ -14,6 +14,7 @@ public class ProductDto {
 	private String brand;
 	private Long price;
 	private Integer discount;
-	private String urlImg; 
+	private String urlImg;
+	private Integer status;
 	
 }

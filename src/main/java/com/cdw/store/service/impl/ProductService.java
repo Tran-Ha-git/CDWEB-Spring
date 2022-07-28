@@ -113,5 +113,16 @@ public class ProductService implements IProductService {
 		return productRepo.getOutputPriceProductByProductId(id);
 	}
 
+	@Override
+	public String getLongDescription(Long id) {
+		return productRepo.getLongDescriptionById(id);
+	}
+
+	@Override
+	public void updateProduct(ProductAddDto productAddDto) {
+		Product product = productConverter.convertAddProductToEntity(productAddDto);
+		 productRepo.save(product);
+	}
+
 
 }
