@@ -1,5 +1,6 @@
 package com.cdw.store.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import com.cdw.store.dto.OrderDetailDto;
 import com.cdw.store.exception.ProductNotFoundException;
 import com.cdw.store.model.Address;
 import com.cdw.store.model.Bill;
+import com.cdw.store.model.Image;
 import com.cdw.store.model.OrderDetail;
 import com.cdw.store.model.Product;
 import com.cdw.store.model.User;
@@ -125,17 +127,22 @@ public class BillService implements IBillService {
 		dto.setMethod("Thanh toán khi nhận hàng");
 		dto.setShippingTime("Khoảng 2-4 ngày");
 		
-		List<OrderDetailDto> orderDetails = bill.getOrderDetails().stream().map((item) -> {
+		List<OrderDetailDto> orderDetailDtos = bill.getOrderDetails().stream().map((item) -> {
 			OrderDetailDto detailDto = new OrderDetailDto();
 			detailDto.setId(item.getId());
 			detailDto.setName(item.getProductDetail().getName());
 			detailDto.setPrice(item.getPrice());
 			detailDto.setQuantity(item.getQuantity());
 			
-			detailDto.setImg(imageRepo.findTopByProductId(item.getId()).getLink());
+			Image img = imageRepo.findTopByProductId(item.getId());
+			if(img!=null) {
+				detailDto.setImg(img.getLink());
+			}else {
+				detailDto.setImg("image.jpg");
+			}
 			return detailDto;
 		}).collect(Collectors.toList());
-		dto.setOrderDetails(orderDetails);
+		dto.setOrderDetails(orderDetailDtos);
 		return dto;
 	}
 }

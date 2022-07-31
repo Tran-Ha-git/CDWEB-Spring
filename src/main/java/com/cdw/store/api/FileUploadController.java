@@ -6,10 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,5 +56,20 @@ public class FileUploadController {
                 }catch(Exception e){
         return ResponseEntity.noContent().build();
                 }
+    }
+    
+    @PostMapping("/multi")
+    public ResponseEntity<List<String>> uploadFile(@RequestParam("files") List<MultipartFile> files){
+        try{
+            List<String> filenames = new ArrayList<String>();
+            for (MultipartFile file : files) {
+            	String generatedFileName = storageService.storeFile(file);
+             	filenames.add(generatedFileName);
+			}
+			return new ResponseEntity<>(filenames , HttpStatus.OK);
+        }catch(Exception e){
+        	e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+        }
     }
 }

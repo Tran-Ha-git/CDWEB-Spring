@@ -51,10 +51,17 @@ public class AuthResource {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDto loginDto, BindingResult bindingResult) {
+		/*
+		 * If the authentication process is successful, 
+		 * we can get User’s information such as username, password, authorities from an Authentication object.
+		 * Authentication works with UserDetails
+		 */
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+		
+		//Add jwt to cookies
 		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());

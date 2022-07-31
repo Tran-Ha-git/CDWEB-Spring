@@ -49,4 +49,16 @@ public class CommentResource {
 		Page<CommentDto> comments = commentService.getAllCommentByProductId(id, page);
 		return new ResponseEntity<Page<CommentDto>>(comments, HttpStatus.OK);
 	}
+	
+	@GetMapping("/product-{id}/percent-comments")
+	public ResponseEntity<List<Float>> getPercentCommentsByProductId(@PathVariable Long id) {
+		List<Float> percentComments = commentService.getPercentCommentsByProductId(id);
+		return new ResponseEntity<List<Float>>(percentComments, HttpStatus.OK);
+	}
+	
+	@GetMapping("/product-{id}/average")
+	public ResponseEntity<Float> getAverageStarCommentsByProductId(@PathVariable Long id) {
+		Float percentComment = commentService.getAverageStarByProductId(id);
+		return new ResponseEntity<Float>(percentComment, HttpStatus.OK);
+	}
 }

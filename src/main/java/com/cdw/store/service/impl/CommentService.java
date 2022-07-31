@@ -1,5 +1,7 @@
 package com.cdw.store.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -87,6 +89,30 @@ public class CommentService implements ICommentService {
 			}			
 		});
 		return results;
+	}
+
+	@Override
+	public List<Float> getPercentCommentsByProductId(Long id) {
+		List<Float> results = new ArrayList<Float>();
+		int allComment= commentRepo.countByProductId(id);
+		if(allComment>0) {
+			for (int i=1; i<=5; i++) {
+				int numComment=commentRepo.countByProductIdAndStar(id, i);
+				float percent = (float)(((float)numComment/allComment)*100);
+				results.add((float) (Math.round(percent)));
+			}
+		}else {
+			Float[] percents = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+			results= Arrays.asList(percents);
+		}
+		
+		return results;
+	}
+
+	@Override
+	public Float getAverageStarByProductId(Long id) {
+		Float result = commentRepo.averageStarByProductId(id);
+		return  (float) (Math.round(result * 100.0) / 100.0);
 	}
 
 }

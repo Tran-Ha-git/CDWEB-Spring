@@ -24,12 +24,22 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
-
+	
+	/*
+	 * executes once per request
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
+			//get JWT from the HTTP Cookies
 			String jwt = parseJwt(request);
+			
+			/*
+			 * if the request has JWT, validate it, parse username from it
+			 * from username, get UserDetails to create an Authentication object
+			 *–> set the current UserDetails in SecurityContext
+			 */
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);

@@ -396,6 +396,13 @@ INSERT INTO `user` (
 `id`, `birthday`, `created_date`, `email`, `gender`, `password`, `status`, `token`, `updated_date`,`username`) 
  VALUES ('6', '1998-01-15 00:00:00', '2022-07-19 10:47:48', 'tranquangtuyen326326@gmail.com', '1', '$2a$10$0Dfv6mLWOvfHIEQt24FkEeVWbaa3ZNiSY/bkffWX2i..cmvEb7mzC', '1', null, '2022-07-19 10:47:48', 'u6');
 
+INSERT INTO `comment` 
+VALUES 
+(4,'I like','2022-07-31 12:24:27',4,1,'f6c5cb6d68714405bf270f5f5afa6042.jpg,79c38fa8033b4ff7b1dbd714f5292b45.png','','u2',1,2),
+(5,'Ok','2022-07-31 12:31:13',5,1,'735a46716dee44aea59c690a9709d067.jpg,567adb542c494ce0b09079ef054ec0ba.jpg','','u2',1,2),
+(6,'dfaf','2022-07-31 13:33:03',1,1,'bca26ff239cc4be8b1e02f72c0752b8f.jpg,af21b4cdedcd47f18728385d2c83cf28.png','','u2',1,1),
+(7,'Fadfas','2022-07-31 13:35:25',3,1,'71c629360df2402e8723dc5fae26498f.png,e160ee28b18844f1a8eae28caf36740f.jpg','','u2',1,1),
+(8,'sáng','2022-07-31 13:43:24',3,1,'7de91555096b482187e3c085f366ce86.png','','u2',1,1);
 
 
 
