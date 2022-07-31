@@ -4,24 +4,32 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.cdw.store.dto.BillDto;
+import com.cdw.store.dto.BillInAdminDto;
 import com.cdw.store.dto.CheckoutDto;
 import com.cdw.store.dto.DetailBillDto;
 import com.cdw.store.dto.OrderDetailDto;
+import com.cdw.store.dto.UserInAdminDto;
 import com.cdw.store.exception.ProductNotFoundException;
 import com.cdw.store.model.Address;
 import com.cdw.store.model.Bill;
 import com.cdw.store.model.Image;
 import com.cdw.store.model.OrderDetail;
 import com.cdw.store.model.Product;
+import com.cdw.store.model.Role;
 import com.cdw.store.model.User;
 import com.cdw.store.repo.AddressRepo;
 import com.cdw.store.repo.BillRepo;
@@ -144,5 +152,47 @@ public class BillService implements IBillService {
 		}).collect(Collectors.toList());
 		dto.setOrderDetails(orderDetailDtos);
 		return dto;
+	}
+
+	@Override
+	public Page<BillInAdminDto> getBillsInAdmin(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+		Page<Bill> bills = billRepo.findAll(pageable);
+		Page<BillInAdminDto> results = bills.map(new Function<Bill, BillInAdminDto>() {
+			@Override
+			public BillInAdminDto apply(Bill entity) {
+				BillInAdminDto dto = new BillInAdminDto();
+				dto = billConverter.convertToBillInAdminDto(entity);
+				return dto;
+			}
+		});
+		return results ;
+	}
+
+	@Transactional
+	@Override
+	public boolean updateCancelledStatus(Long[] ids) {
+		for (Long id : ids) {
+			if (updateCancelledStatusByBillId(id,2) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean updateCancelledStatusByBillId(Long id, Integer status) {
+		Optional<Bill> bill = billRepo.findById(id);
+		if (bill.isPresent()) {
+			bill.get().setStatus(status);// đã hủy
+			billRepo.save(bill.get());
+			return true;
+		}
+		return false;
+	}
+
+	@Transactional
+	@Override
+	public boolean updateStatus(Long id, Integer status) {
+		return updateCancelledStatusByBillId(id,status);
 	}
 }
