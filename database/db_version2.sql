@@ -415,3 +415,7 @@ UPDATE cdweb2022.category
 SET status = 'Active'
 WHERE id>0;
 
+ALTER TABLE `cdweb2022`.`product` 
+CHANGE COLUMN `long_description` `long_description` BLOB NULL DEFAULT NULL ;
+
+
