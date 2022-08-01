@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cdw.store.dto.BillDto;
 import com.cdw.store.dto.BillInAdminDto;
 import com.cdw.store.dto.DetailBillDto;
-import com.cdw.store.dto.UserInAdminDto;
 import com.cdw.store.service.IBillService;
-import com.cdw.store.service.impl.BillService;
 
 @RestController
 @RequestMapping("/bill")
@@ -42,19 +40,20 @@ public class BillResource {
 		DetailBillDto bill = billService.findById(id);
 		return new ResponseEntity<DetailBillDto>(bill, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all/admin")
-	public ResponseEntity<Page<BillInAdminDto>> getAllBillsInAdmin(@RequestParam Integer page,@RequestParam Integer size) {
+	public ResponseEntity<Page<BillInAdminDto>> getAllBillsInAdmin(@RequestParam Integer page,
+			@RequestParam Integer size) {
 		Page<BillInAdminDto> bills = billService.getBillsInAdmin(page, size);
 		return new ResponseEntity<Page<BillInAdminDto>>(bills, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/editStatus")
 	public ResponseEntity<Boolean> updateStatus(@RequestParam Long[] id) {
 		boolean result = billService.updateCancelledStatus(id);
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/updateStatus")
 	public ResponseEntity<Boolean> updateStatus(@RequestParam Long id, @RequestParam Integer status) {
 		boolean result = billService.updateStatus(id, status);

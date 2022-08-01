@@ -404,5 +404,14 @@ VALUES
 (7,'Fadfas','2022-07-31 13:35:25',3,1,'71c629360df2402e8723dc5fae26498f.png,e160ee28b18844f1a8eae28caf36740f.jpg','','u2',1,1),
 (8,'sáng','2022-07-31 13:43:24',3,1,'7de91555096b482187e3c085f366ce86.png','','u2',1,1);
 
+/*
+ * Update table category and attribute
+ */
+UPDATE cdweb2022.attribute
+SET status = 'Active'
+WHERE id>0;
 
+UPDATE cdweb2022.category
+SET status = 'Active'
+WHERE id>0;
 

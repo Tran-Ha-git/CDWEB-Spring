@@ -1,6 +1,5 @@
 package com.cdw.store.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,14 +21,12 @@ import com.cdw.store.dto.BillInAdminDto;
 import com.cdw.store.dto.CheckoutDto;
 import com.cdw.store.dto.DetailBillDto;
 import com.cdw.store.dto.OrderDetailDto;
-import com.cdw.store.dto.UserInAdminDto;
 import com.cdw.store.exception.ProductNotFoundException;
 import com.cdw.store.model.Address;
 import com.cdw.store.model.Bill;
 import com.cdw.store.model.Image;
 import com.cdw.store.model.OrderDetail;
 import com.cdw.store.model.Product;
-import com.cdw.store.model.Role;
 import com.cdw.store.model.User;
 import com.cdw.store.repo.AddressRepo;
 import com.cdw.store.repo.BillRepo;

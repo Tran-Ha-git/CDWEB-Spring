@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cdw.store.dto.BillInAdminDto;
+import com.cdw.store.dto.CategoryDto;
 import com.cdw.store.dto.MenuDto;
 import com.cdw.store.model.Category;
 import com.cdw.store.repo.CategoryRepo;
@@ -40,5 +44,11 @@ public class CategoryResource {
 			});
 		}
 		return new ResponseEntity<>(menus, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all/admin")
+	public ResponseEntity<Page<CategoryDto>> getAllCategoriesInAdmin(@RequestParam Integer page,@RequestParam Integer size) {
+		Page<CategoryDto> categories = categoryService.getCategoriesInAdmin(page, size);
+		return new ResponseEntity<Page<CategoryDto>>(categories, HttpStatus.OK);
 	}
 }

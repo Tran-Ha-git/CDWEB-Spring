@@ -16,5 +16,6 @@ import lombok.NoArgsConstructor;
 public class CategoryDto {
 	private Long id;
 	private String name;
+	private String status;
 	private List<AttributeDto> attributes =new ArrayList<>();
 }

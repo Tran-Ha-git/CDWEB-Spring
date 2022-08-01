@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -33,6 +35,8 @@ public class Attribute {
 	private Long id;
 	private String name;
 	private String value;
+	 @Length(max = 45)
+	private String status = "Active"; //Inactive and Active
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "attributes")
