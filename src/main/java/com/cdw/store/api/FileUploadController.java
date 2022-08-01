@@ -72,4 +72,15 @@ public class FileUploadController {
             return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
         }
     }
+    
+    @DeleteMapping()
+    public ResponseEntity<Boolean> uploadFile(@RequestParam("file") String filename){
+        try{
+			boolean result = storageService.deleteByFilename(filename);
+			return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch(Exception e){
+        	e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+        }
+    }
 }

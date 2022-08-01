@@ -17,4 +17,10 @@ public interface ICommentService {
 	List<Float> getPercentCommentsByProductId(Long id);
 
 	Float getAverageStarByProductId(Long id);
+
+	Page<CommentDto> getCommentsInAdmin(Integer page, Integer size);
+
+	boolean delete(Long[] id);
+
+	boolean updateStatusById(Long[] id, Integer status);
 }

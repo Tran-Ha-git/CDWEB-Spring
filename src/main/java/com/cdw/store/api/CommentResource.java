@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,5 +61,23 @@ public class CommentResource {
 	public ResponseEntity<Float> getAverageStarCommentsByProductId(@PathVariable Long id) {
 		Float percentComment = commentService.getAverageStarByProductId(id);
 		return new ResponseEntity<Float>(percentComment, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all/admin")
+	public ResponseEntity<Page<CommentDto>> getAllCategoriesInAdmin(@RequestParam Integer page,@RequestParam Integer size) {
+		Page<CommentDto> comments = commentService.getCommentsInAdmin(page, size);
+		return new ResponseEntity<Page<CommentDto>>(comments, HttpStatus.OK);
+	}
+	
+	@DeleteMapping()
+	public ResponseEntity<Boolean> delete(@RequestParam Long[] id) {
+		boolean result = commentService.delete(id);
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("/updateStatus")
+	public ResponseEntity<Boolean> updateStatus(@RequestParam Long[] id, @RequestParam Integer status) {
+		boolean result = commentService.updateStatusById(id, status);
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 	}
 }

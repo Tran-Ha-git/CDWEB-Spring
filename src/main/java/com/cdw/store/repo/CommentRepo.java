@@ -27,5 +27,12 @@ public interface CommentRepo extends JpaRepository<Comment, Long> {
 	
 	@Query("select AVG(star) from Comment c where c.productComment.id=:productId  and c.status = 1")
 	Float averageStarByProductId(@Param("productId") Long productId);
+
+	Page<Comment> findAllByStatus(Pageable pageable, Integer status);
+
+	void deleteAllByIdIn(Long[] ids);
+
+	@Query("select c.urlImg from Comment c where c.id=:id ")
+	String getUrlImgById(Long id);
 	
 }
