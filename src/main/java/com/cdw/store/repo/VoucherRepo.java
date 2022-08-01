@@ -19,4 +19,6 @@ public interface VoucherRepo extends JpaRepository<Voucher, Long> {
 
 	Optional<Voucher> findByCode(String code);
 
+	void deleteAllByIdIn(Long[] ids);
+
 }
