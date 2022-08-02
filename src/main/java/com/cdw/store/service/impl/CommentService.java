@@ -120,7 +120,7 @@ public class CommentService implements ICommentService {
 	@Override
 	public Float getAverageStarByProductId(Long id) {
 		Float result = commentRepo.averageStarByProductId(id);
-		return (float) (Math.round(result * 100.0) / 100.0);
+		return (result==null?0.0f:(float) (Math.round(result * 100.0) / 100.0));
 	}
 
 	@Override

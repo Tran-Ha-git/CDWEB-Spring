@@ -82,12 +82,16 @@ public class ProductConverter {
 		}
 		
 		String summary = entity.getSummary();
-		String[] description= summary.split(";");
-		dto.setDescription(description);
+		if(summary!=null && summary!="") {
+			String[] description= summary.split(";");
+			dto.setDescription(description);
+		}
 		
 		String promotion = entity.getPromotion();
-		String[] promotions= promotion.split(";");
-		dto.setPromotion(promotions);
+		if(promotion!=null && promotion!="") {
+			String[] promotions= promotion.split(";");
+			dto.setPromotion(promotions);
+		}
 		
 		dto.setDescription_full(entity.getLongDescription());
 		dto.setDescription_short(entity.getShortDescription());
