@@ -34,6 +34,10 @@ public interface ProductRepo extends JpaRepository<Product, Long>, JpaSpecificat
     @Query("Select distinct p.longDescription from Product p  where p.id = :id")
     String getLongDescriptionById(Long id);
     
-    //@Query(value = "SELECT * FROM products p WHERE p.status = 1 ", nativeQuery = true)
+    @Query(value = "select p.*\r\n"
+    		+ "from product_attribute pt inner join attribute t on pt.attribute_id=t.id \r\n"
+    		+ "inner join product p on p.id=pt.product_id\r\n"
+    		+ " where t.category_id=1 and p.status =1\r\n"
+    		+ " GROUP BY p.id limit 10", nativeQuery = true)
 	List<Product> findTop10ByAttributesCategoryId(Long catId);
 }
