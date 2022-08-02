@@ -13,5 +13,11 @@ public interface ICategoryService {
 	List<CategoryDto> findAll();
 
 	Page<CategoryDto> getCategoriesInAdmin(Integer page, Integer size);
+
+	boolean updateStatus(Long[] id, String status);
+
+	CategoryDto saveCategory(CategoryDto dto);
+
+	boolean existAttributeName(String name);
 	
 }
