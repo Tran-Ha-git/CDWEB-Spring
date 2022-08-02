@@ -179,5 +179,11 @@ ProductConverter productConverter;
 		String desc = productService.getLongDescription(id);
 		return new ResponseEntity<String>(desc, HttpStatus.OK);
 	}
+	
+	@GetMapping("/relate")
+	public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam Long catId){
+		List<ProductDto> products = productService.findRelatedProductsByCatID(catId);
+		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
+	}
 
 }

@@ -33,4 +33,7 @@ public interface ProductRepo extends JpaRepository<Product, Long>, JpaSpecificat
 	Long getOutputPriceProductByProductId(Long id);
     @Query("Select distinct p.longDescription from Product p  where p.id = :id")
     String getLongDescriptionById(Long id);
+    
+    //@Query(value = "SELECT * FROM products p WHERE p.status = 1 ", nativeQuery = true)
+	List<Product> findTop10ByAttributesCategoryId(Long catId);
 }

@@ -124,5 +124,33 @@ public class ProductService implements IProductService {
 		 productRepo.save(product);
 	}
 
+	@Override
+	public List<ProductDto> findRelatedProductsByCatID(Long catId) {
+		List<Product> entities = productRepo.findTop10ByAttributesCategoryId(catId);
+		List<ProductDto> results = new ArrayList<>();
+
+		for (Product entity : entities) {
+			ProductDto result = productConverter.convertToDto(entity);
+
+			// set link img
+			List<Image> imgs = entity.getImages();
+			if (imgs != null && imgs.size() > 0) {
+				result.setUrlImg(imgs.get(0).getLink());
+			}
+			
+			//get brand
+			String brand = "";
+			List<Attribute> attributes = entity.getAttributes();
+			for (Attribute attribute : attributes) {
+				if(attribute.getName().equals("THƯƠNG HIỆU")) {
+					brand=attribute.getValue();
+				}
+			}
+			result.setBrand(brand);
+			results.add(result);
+		}
+		return results;
+	}
+
 
 }
