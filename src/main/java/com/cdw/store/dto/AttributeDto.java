@@ -11,4 +11,6 @@ public class AttributeDto {
 	private Long id;
 	private String name;
 	private String value;
+	private String status;
+	private Long categoryId;
 }

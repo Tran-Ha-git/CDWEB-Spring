@@ -1,14 +1,22 @@
 package com.cdw.store.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.cdw.store.dto.VoucherDto;
 import com.cdw.store.model.Bill;
 import com.cdw.store.model.Voucher;
 import com.cdw.store.repo.BillRepo;
@@ -64,5 +72,69 @@ public class VoucherService implements IVoucherService {
 		}
 
 		return -1; // error
+	}
+
+	@Override
+	public Page<VoucherDto> getVouchersInAdmin(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+		Page<Voucher> vouchers = voucherRepo.findAll(pageable);
+		Page<VoucherDto> results = vouchers.map(new Function<Voucher, VoucherDto>() {
+			@Override
+			public VoucherDto apply(Voucher entity) {
+				VoucherDto dto = new VoucherDto();
+				BeanUtils.copyProperties(entity, dto);
+				if(entity.getBills()!=null && entity.getBills().size()>0) {
+					Long[] ids = entity.getBills().stream()
+						    .map(bill -> bill.getId())
+						    .toArray(Long[]::new);
+					dto.setBillIds(Arrays.asList(ids));
+				}
+				
+				return dto;
+			}
+		});
+		return results ;
+	}
+	
+	@Transactional
+	@Override
+	public boolean delete(Long[] ids) {
+		voucherRepo.deleteAllByIdIn(ids);
+		return true;
+	}
+
+	@Transactional
+	@Override
+	public boolean updateStatusById(Long[] ids, Integer status) {
+		for (Long id : ids) {
+			Optional<Voucher> entity = voucherRepo.findById(id);
+			if(entity.isPresent()) {
+				entity.get().setStatus(status);
+				voucherRepo.save(entity.get());
+			}
+		}
+		return true;
+	}
+
+	@Transactional
+	@Override
+	public VoucherDto saveVoucher(VoucherDto dto) {
+		VoucherDto result = new VoucherDto();
+		Voucher savedVoucher = null;
+		
+		if(dto.getId()!=null && dto.getId()>0) {
+			Optional<Voucher> voucher = voucherRepo.findById(dto.getId());
+			if(voucher.isPresent()) {
+				BeanUtils.copyProperties(dto, voucher.get());
+				savedVoucher = voucherRepo.save(voucher.get());
+			}
+		}else {
+			Voucher voucher = new Voucher();
+			BeanUtils.copyProperties(dto, voucher);
+			voucher.setId(null);
+			savedVoucher = voucherRepo.save(voucher);
+		}
+		BeanUtils.copyProperties(savedVoucher, result );
+		return result;
 	}
 }

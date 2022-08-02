@@ -36,6 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		return new AuthTokenFilter();
 	}
 
+	/*
+	 * Cấu hình DaoAuthenticationProvider 
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -51,6 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		return super.authenticationManagerBean();
 	}
 
+	/*
+	 * Hiện thực cấu hình securityAdapter -> xác định exception, filter, session manager, cors
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()

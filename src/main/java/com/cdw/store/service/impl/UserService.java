@@ -80,10 +80,16 @@ public class UserService implements IUserService {
 		entity.setUpdatedDate(now);
 		if(user.getId()==null) {
 			entity.setCreatedDate(now);
-			String encodedPassword = passwordEncoder.encode(user.getPassword());
+			if(user.getPassword()!=null) {
+				String encodedPassword = passwordEncoder.encode(user.getPassword());
+				entity.setPassword(encodedPassword);	
+			}
+		}else {
+			String encodedPassword = userRepo.findById(user.getId()).get().getPassword();
 			entity.setPassword(encodedPassword);
 		}
-
+		
+		
 		User savedUser = userRepo.save(entity);
 		UserDto result = userConverter.convertToDto(savedUser);
 		savedUser.getRoles().forEach(item -> {

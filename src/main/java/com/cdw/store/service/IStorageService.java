@@ -10,4 +10,5 @@ public interface IStorageService {
     Stream<Path> loadAll();
     byte[] readFileContent(String fileName);
     void deleteAllFile();
+    boolean deleteByFilename(String filename);
 }

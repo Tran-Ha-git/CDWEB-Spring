@@ -1,12 +1,11 @@
 package com.cdw.store.utils;
 
-import com.cdw.store.dto.AddressDto;
-import com.cdw.store.dto.AttributeDto;
-import com.cdw.store.model.Address;
-import com.cdw.store.model.Attribute;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.cdw.store.dto.AttributeDto;
+import com.cdw.store.model.Attribute;
 
 @Component
 public class AttributeConverter {
