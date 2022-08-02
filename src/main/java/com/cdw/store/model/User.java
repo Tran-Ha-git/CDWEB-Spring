@@ -38,7 +38,7 @@ public class User {
 	private String password;
 	private Date birthday;
 	private Integer gender;
-	private Integer status;
+	private Integer status = 1;
 	private String token;
 	@Column(name = "created_date")
 	private Date createdDate;
