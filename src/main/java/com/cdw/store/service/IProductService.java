@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.cdw.store.dto.DetailProductDto;
 import com.cdw.store.dto.ImageDto;
+import com.cdw.store.dto.ProductAddDto;
 import com.cdw.store.dto.ProductDto;
 import com.cdw.store.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IProductService {
-	public ProductDto addProduct(ProductDto productDto);
+	public ProductDto addProduct(ProductAddDto productAddDto);
 
 	public List<ProductDto> findALlProducts();
 
@@ -27,4 +28,7 @@ public interface IProductService {
 	public Long getQuantityProductByProductId (Long id);
 
 	public Long getOutputPriceProductById (Long id);
+
+	public String getLongDescription(Long id);
+	void updateProduct(ProductAddDto productAddDto);
 }

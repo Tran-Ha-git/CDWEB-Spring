@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.cdw.store.dto.ProductAddDto;
 import com.cdw.store.model.Filter;
 import com.cdw.store.model.QueryOperator;
 import com.cdw.store.repo.ProductRepo;
@@ -54,7 +55,7 @@ ProductConverter productConverter;
 															 @RequestParam(defaultValue = "10") int size){
 		Pageable paging = PageRequest.of(page, size);
 		Page<ProductDto> pageProducts;
-		if(q==null){
+		if(q.equals("")){
 			pageProducts=productService.findAll(paging);
 		}else{
 				pageProducts=productService.searchAndPaging(q,paging);
@@ -148,15 +149,17 @@ ProductConverter productConverter;
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto){
-		ProductDto newProduct = productService.addProduct(productDto);
+	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductAddDto productAddDto){
+		System.out.println(productAddDto.getLongDescription());
+		ProductDto newProduct = productService.addProduct(productAddDto);
+
 		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto){
-		ProductDto updateProduct = productService.addProduct(productDto);
-		return new ResponseEntity<ProductDto>(updateProduct, HttpStatus.OK);
+	public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductAddDto productAddDto){
+		 ProductDto product= productService.addProduct(productAddDto);
+		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
@@ -170,6 +173,11 @@ ProductConverter productConverter;
 	public ResponseEntity<Long> getQuantityProduct(@PathVariable("id") Long id){
 		Long quantity = productService.getQuantityProductByProductId(id);
 		return new ResponseEntity<Long>(quantity, HttpStatus.OK);
+	}
+	@GetMapping("/{id}/description")
+	public ResponseEntity<String> getLongDescription(@PathVariable("id") Long id){
+		String desc = productService.getLongDescription(id);
+		return new ResponseEntity<String>(desc, HttpStatus.OK);
 	}
 
 }
