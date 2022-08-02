@@ -24,6 +24,8 @@ public class Product implements Serializable {
 	private Long id;
 	private String name;
 	private String shortDescription;
+	@Lob
+    @Column(columnDefinition="BLOB")
 	private String longDescription;
 	private String summary;
 	private Long quantity;
