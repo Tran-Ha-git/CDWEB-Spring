@@ -31,4 +31,8 @@ public interface IProductService {
 
 	public String getLongDescription(Long id);
 	void updateProduct(ProductAddDto productAddDto);
+
+	List<ProductDto> findRelatedProductsByCatID(Long catId);
+
+	ProductDto addProduct(ProductAddDto productAddDto, List<Long> attributeIds);
 }

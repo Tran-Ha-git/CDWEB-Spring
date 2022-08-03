@@ -3,6 +3,7 @@ package com.cdw.store.service.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.cdw.store.dto.AttributeDto;
@@ -20,6 +21,7 @@ import com.cdw.store.exception.ProductNotFoundException;
 import com.cdw.store.model.Attribute;
 import com.cdw.store.model.Image;
 import com.cdw.store.model.Product;
+import com.cdw.store.repo.AttributeRepo;
 import com.cdw.store.repo.ProductRepo;
 import com.cdw.store.service.IProductService;
 import com.cdw.store.utils.ProductConverter;
@@ -34,6 +36,9 @@ public class ProductService implements IProductService {
 private AttributeService attributeService;
 	@Autowired
 	private ProductRepo productRepo;
+	
+	@Autowired
+	private AttributeRepo attributeRepo;
 
 	@Autowired
 	private AttributeRepo attributeRepo;
@@ -143,5 +148,44 @@ private AttributeService attributeService;
 		 productRepo.save(product);
 	}
 
+	@Override
+	public List<ProductDto> findRelatedProductsByCatID(Long catId) {
+		List<Product> entities = productRepo.findTop10ByAttributesCategoryId(catId);
+		List<ProductDto> results = new ArrayList<>();
 
+		for (Product entity : entities) {
+			ProductDto result = productConverter.convertToDto(entity);
+
+			// set link img
+			List<Image> imgs = entity.getImages();
+			if (imgs != null && imgs.size() > 0) {
+				result.setUrlImg(imgs.get(0).getLink());
+			}
+			
+			//get brand
+			String brand = "";
+			List<Attribute> attributes = entity.getAttributes();
+			for (Attribute attribute : attributes) {
+				if(attribute.getName().equals("THƯƠNG HIỆU")) {
+					brand=attribute.getValue();
+				}
+			}
+			result.setBrand(brand);
+			results.add(result);
+		}
+		return results;
+	}
+
+	
+	@Override
+	public ProductDto addProduct(ProductAddDto productAddDto, List<Long> attributeIds) {
+		Product product = productConverter.convertAddProductToEntity(productAddDto);
+		for (Long attId : attributeIds) {
+			Optional<Attribute> att = attributeRepo.findById(attId);
+			if(att.isPresent()) {
+				product.getAttributes().add(att.get());
+			}
+		}
+		return productConverter.convertToDto(productRepo.save(product));
+	}
 }
