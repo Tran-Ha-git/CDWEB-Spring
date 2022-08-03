@@ -2,6 +2,7 @@ package com.cdw.store.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.cdw.store.dto.ProductAddDto;
@@ -16,6 +17,7 @@ import com.cdw.store.exception.ProductNotFoundException;
 import com.cdw.store.model.Attribute;
 import com.cdw.store.model.Image;
 import com.cdw.store.model.Product;
+import com.cdw.store.repo.AttributeRepo;
 import com.cdw.store.repo.ProductRepo;
 import com.cdw.store.service.IProductService;
 import com.cdw.store.utils.ProductConverter;
@@ -27,10 +29,13 @@ public class ProductService implements IProductService {
 
 	@Autowired
 	private ProductRepo productRepo;
+	
+	@Autowired
+	private AttributeRepo attributeRepo;
 
 	@Override
 	public ProductDto addProduct(ProductAddDto productAddDto) {
-		Product product = productConverter.convertAddProductToEntity(productAddDto);
+		Product product = productConverter.convertAddProductToEntity(productAddDto);		
 		return productConverter.convertToDto(productRepo.save(product));
 	}
 
@@ -152,5 +157,16 @@ public class ProductService implements IProductService {
 		return results;
 	}
 
-
+	
+	@Override
+	public ProductDto addProduct(ProductAddDto productAddDto, List<Long> attributeIds) {
+		Product product = productConverter.convertAddProductToEntity(productAddDto);
+		for (Long attId : attributeIds) {
+			Optional<Attribute> att = attributeRepo.findById(attId);
+			if(att.isPresent()) {
+				product.getAttributes().add(att.get());
+			}
+		}
+		return productConverter.convertToDto(productRepo.save(product));
+	}
 }

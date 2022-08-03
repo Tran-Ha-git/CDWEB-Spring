@@ -33,4 +33,6 @@ public interface IProductService {
 	void updateProduct(ProductAddDto productAddDto);
 
 	List<ProductDto> findRelatedProductsByCatID(Long catId);
+
+	ProductDto addProduct(ProductAddDto productAddDto, List<Long> attributeIds);
 }

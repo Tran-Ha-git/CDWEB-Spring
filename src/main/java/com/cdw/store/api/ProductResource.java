@@ -186,4 +186,10 @@ ProductConverter productConverter;
 		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
 	}
 
+	
+	@PostMapping("/add-2")
+	public ResponseEntity<ProductDto> addProduct2(@RequestBody ProductAddDto productAddDto, @RequestParam List<Long> attIds){
+		ProductDto newProduct = productService.addProduct(productAddDto,attIds);
+		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
+	}
 }
