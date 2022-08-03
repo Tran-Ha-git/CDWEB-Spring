@@ -1,10 +1,14 @@
 package com.cdw.store.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.cdw.store.dto.AttributeDto;
 import com.cdw.store.dto.ProductAddDto;
+import com.cdw.store.repo.AttributeRepo;
+import com.cdw.store.utils.AttributeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +28,28 @@ import com.cdw.store.utils.ProductConverter;
 public class ProductService implements IProductService {
 	@Autowired
 	private ProductConverter productConverter;
-
+	@Autowired
+	private AttributeConverter attributeConverter;
+@Autowired
+private AttributeService attributeService;
 	@Autowired
 	private ProductRepo productRepo;
+
+	@Autowired
+	private AttributeRepo attributeRepo;
 
 	@Override
 	public ProductDto addProduct(ProductAddDto productAddDto) {
 		Product product = productConverter.convertAddProductToEntity(productAddDto);
+		List<Attribute> attributes = new ArrayList<>();
+
+		for(int i=0;i<productAddDto.getAttributeIds().length;i++){
+
+			Attribute attr =attributeRepo.findById(productAddDto.getAttributeIds()[i]).get();
+			product.getAttributes().add(attr);
+		}
+//		System.out.println(Arrays.toString(attributes.toArray()));
+
 		return productConverter.convertToDto(productRepo.save(product));
 	}
 

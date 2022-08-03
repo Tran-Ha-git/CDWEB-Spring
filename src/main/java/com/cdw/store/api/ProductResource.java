@@ -150,8 +150,13 @@ ProductConverter productConverter;
 
 	@PostMapping("/add")
 	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductAddDto productAddDto){
-		System.out.println(productAddDto.getLongDescription());
+		System.out.println(productAddDto.getAttributeIds()[0]);
 		ProductDto newProduct = productService.addProduct(productAddDto);
+//		if(productAddDto.getAttributeId().length>0){
+//			for(int i =0;i<productAddDto.getAttributeId().length;i++){
+//
+//			}
+//		}
 
 		return new ResponseEntity<ProductDto>(newProduct, HttpStatus.CREATED);
 	}

@@ -16,5 +16,5 @@ public class ProductAddDto {
     private Long quantity;
     private Integer discount;
     private Integer status;
-
+    private Long[] attributeIds;
 }

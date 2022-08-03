@@ -1,6 +1,7 @@
 package com.cdw.store.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,5 +23,6 @@ public interface AttributeRepo extends JpaRepository<Attribute, Long> {
 	@Query("Select  a.name from Attribute a group by a.name")
 	List<String> findAttributeName();
 
+	Optional<Attribute> findById(Long id);
 	boolean existsByNameAndValueAndCategoryId(String name, String value, Long categoryId);
 }

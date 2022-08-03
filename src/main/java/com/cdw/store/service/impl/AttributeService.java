@@ -90,6 +90,11 @@ public class AttributeService implements IAttributeService {
 	}
 
 	@Override
+	public AttributeDto getById(Long id) {
+		return attributeConverter.convertToDto(attributeRepo.findById(id).get());
+	}
+
+	@Override
 	public boolean existAttributeNameInTheSameCategory(String name, String value, Long categoryId) {
 		return attributeRepo.existsByNameAndValueAndCategoryId(name, value, categoryId);
 	}
